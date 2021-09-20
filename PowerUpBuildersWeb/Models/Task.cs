@@ -1,14 +1,19 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace PowerUpBuildersWeb.Models
 {
     public class Task
     {
         public int Id { get; set; }
+
+        [Required]
+        public Project Project { get; set; }
+
+        [Required]
         public string TaskNumber { get; set; }
         public TaskStatus Status { get; set; }
-        public List<string> Images { get; set; } = new();
-        public List<string> Files { get; set; } = new();
+        public List<TaskLocalFile> Files { get; set; } = new();
         public List<EmployeeTask> Employees { get; set; } = new();
     }
 }
