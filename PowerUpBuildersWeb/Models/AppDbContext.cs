@@ -30,6 +30,9 @@ namespace PowerUpBuildersWeb.Models
                 .HasOne(et => et.Task)
                 .WithMany(t => t.Employees)
                 .HasForeignKey(et => et.TaskId);
+
+            modelBuilder.Entity<Project>().HasData(new Project() { Id = 1, Name = "TestProj" });
+            modelBuilder.Entity<Project>().HasData(new Project() { Id = 2, Name = "Test2" });
         }
     }
 }

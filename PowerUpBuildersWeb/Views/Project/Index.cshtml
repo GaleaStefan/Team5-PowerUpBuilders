@@ -1,0 +1,8 @@
+﻿@model IEnumerable<Project>
+
+<div class="text-center">
+    @foreach (var proj in Model)
+    { 
+        <p>@proj.Name</p>
+    }
+</div>
