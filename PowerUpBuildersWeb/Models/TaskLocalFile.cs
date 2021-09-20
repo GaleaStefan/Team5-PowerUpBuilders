@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace PowerUpBuildersWeb.Models
 {
@@ -9,6 +10,9 @@ namespace PowerUpBuildersWeb.Models
 
         [Required]
         public Task Task { get; set; }
+
+        [Required]
+        public DateTime UploadDate { get; set; }
 
         [Required]
         public string FileName { get; set; }
