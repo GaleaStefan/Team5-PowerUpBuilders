@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using PowerUpBuildersWeb.Models;
+using PowerUpBuildersWeb.ViewModel;
 
 namespace PowerUpBuildersWeb.Controllers
 {
@@ -13,7 +14,8 @@ namespace PowerUpBuildersWeb.Controllers
 
         public IActionResult Index()
         {
-            return View(repository.GetProjects());
+            ProjectViewModel _projectViewModel = new ProjectViewModel() {Projects=repository.GetProjects() };
+            return View(_projectViewModel);
         }
     }
 }
