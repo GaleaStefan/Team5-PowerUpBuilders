@@ -8,5 +8,10 @@ namespace PowerUpBuildersWeb.Repositories
     public interface ITaskRepository
     {
         IEnumerable<Task> GetTasks();
+        Task GetTaskByID(int taskId);
+        void InsertTask(Task task);
+        void DeleteTask(int taskId);
+        void UpdateTask(Task task);
+        void Save();
     }
 }
