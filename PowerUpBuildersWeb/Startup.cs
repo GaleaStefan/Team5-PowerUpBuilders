@@ -28,7 +28,12 @@ namespace PowerUpBuildersWeb
             services.AddControllersWithViews();
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddScoped<IProjectRepository, ProjectRepository>();
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<ITaskRepository, TaskRepository>();
+            services.AddScoped<ITaskLocalFileRepository, TaskLocalFileRepository>();
+
 
             services.AddScoped<IUploadsManager, UploadsManager>();
 
