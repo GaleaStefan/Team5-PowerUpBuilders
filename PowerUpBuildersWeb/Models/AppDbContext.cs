@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace PowerUpBuildersWeb.Models
 {
@@ -14,7 +15,7 @@ namespace PowerUpBuildersWeb.Models
         {
 
         }
-         
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -31,8 +32,14 @@ namespace PowerUpBuildersWeb.Models
                 .WithMany(t => t.Employees)
                 .HasForeignKey(et => et.TaskId);
 
-            modelBuilder.Entity<Project>().HasData(new Project() { Id = 1, Name = "TestProj" });
+            Project project = new() { Id = 1, Name = "TestProj", Tasks = new() };
+
+            modelBuilder.Entity<Project>().HasData(project);
             modelBuilder.Entity<Project>().HasData(new Project() { Id = 2, Name = "Test2" });
+
+            modelBuilder.Entity<Employee>().HasData(new Employee() { Id = 1, Name = "Stefan" });
+
+            modelBuilder.Entity<Task>().HasData(new Task() { Id = 1, ProjectId = 1, Status = TaskStatus.New, TaskNumber = "TK20190101_01", Employees = new(), Files = new() }) ;
         }
     }
 }

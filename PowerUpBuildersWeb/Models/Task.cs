@@ -8,6 +8,7 @@ namespace PowerUpBuildersWeb.Models
         public int Id { get; set; }
 
         [Required]
+        public int ProjectId { get; set; }
         public Project Project { get; set; }
 
         [Required]
