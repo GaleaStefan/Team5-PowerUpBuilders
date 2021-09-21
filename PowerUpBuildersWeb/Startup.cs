@@ -36,6 +36,7 @@ namespace PowerUpBuildersWeb
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddScoped<ITaskRepository, TaskRepository>();
             services.AddScoped<ITaskLocalFileRepository, TaskLocalFileRepository>();
+            services.AddScoped<IEmployeeTaskRepository, EmployeeTaskRepository>();
 
 
             services.AddScoped<IUploadsManager, UploadsManager>();

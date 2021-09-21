@@ -1,4 +1,5 @@
 ﻿using PowerUpBuildersWeb.Models;
+using PowerUpBuildersWeb.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,9 @@ namespace PowerUpBuildersWeb.ViewModel
 {
     public class ProjectViewModel
     {
-        public IEnumerable<Project> Projects { get; set; }
+        public Project Project { get; set; }
+        public IEnumerable<Models.Task> Tasks { get; set; }
+        public IEnumerable<Employee> Employees { get; set; }
+        //public IEmployeeTaskRepository TaskEmployees { get; set; }
     }
 }

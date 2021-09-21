@@ -41,5 +41,8 @@ namespace PowerUpBuildersWeb.Repositories
         {
             _context.SaveChanges();
         }
+
+        public IEnumerable<Task> GetProjectTasks(int projectId)
+            => _context.Tasks.Where(task => task.ProjectId == projectId);
     }
 }

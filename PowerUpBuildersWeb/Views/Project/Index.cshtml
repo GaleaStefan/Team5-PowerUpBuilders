@@ -1,8 +1,18 @@
 ﻿@model ProjectViewModel
 
+<p>@Model.Project.Name</p>
+
 <div class="text-center">
-    @foreach (var proj in Model.Projects)
-    { 
-        <p>@proj.Name</p>
+    @foreach (var task in Model.Tasks)
+    {
+        <p>@task.Id @task.TaskNumber @task.Status.ToString()</p>
+    }
+</div>
+
+
+<div class="text-center">
+    @foreach (var employee in Model.Employees)
+    {
+        <p>@employee.Id @employee.Name</p>
     }
 </div>

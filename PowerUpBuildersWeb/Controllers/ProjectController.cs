@@ -1,3 +1,6 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using PowerUpBuildersWeb.Models;
 using PowerUpBuildersWeb.Repositories;
@@ -7,16 +10,34 @@ namespace PowerUpBuildersWeb.Controllers
 {
     public class ProjectController : Controller
     {
-        private readonly IProjectRepository repository;
-        public ProjectController(IProjectRepository projectRepository)
+        private readonly IProjectRepository _projectRepo;
+        private readonly IEmployeeTaskRepository _employeeTaskRepo;
+        private readonly IEmployeeRepository _employeeRepo;
+        private readonly ITaskRepository _taskRepo;
+        public ProjectController(
+            IProjectRepository projectRepository, 
+            IEmployeeRepository employeeRepository, 
+            IEmployeeTaskRepository employeeTaskRepo,
+            ITaskRepository taskRepository)
         {
-            repository = projectRepository;
+            _projectRepo = projectRepository;
+            _employeeTaskRepo = employeeTaskRepo;
+            _employeeRepo = employeeRepository;
+            _taskRepo = taskRepository;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int id)
         {
-            ProjectViewModel _projectViewModel = new ProjectViewModel() {Projects=repository.GetProjects() };
-            return View(_projectViewModel);
+            Project current = _projectRepo.GetProjectById(id);
+            
+            ProjectViewModel project = new()
+            {
+                Project = current,
+                Tasks = _taskRepo.GetProjectTasks(id),
+                Employees = _employeeRepo.GetEmployees()
+            };
+
+            return View(project);
         }
     }
 }
