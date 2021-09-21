@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using PowerUpBuildersWeb.Models;
+using PowerUpBuildersWeb.Repositories;
 using PowerUpBuildersWeb.ViewModel;
 
 namespace PowerUpBuildersWeb.Controllers
