@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PowerUpBuildersWeb.Models;
+using PowerUpBuildersWeb.Repositories;
+using PowerUpBuildersWeb.Services;
 
 namespace PowerUpBuildersWeb
 {

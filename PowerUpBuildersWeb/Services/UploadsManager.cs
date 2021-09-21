@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 
-namespace PowerUpBuildersWeb.Models
+namespace PowerUpBuildersWeb.Services
 {
     public class UploadsManager : IUploadsManager
     {

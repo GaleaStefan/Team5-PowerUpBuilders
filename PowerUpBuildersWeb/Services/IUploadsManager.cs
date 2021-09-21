@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Http;
 
-namespace PowerUpBuildersWeb.Models
+namespace PowerUpBuildersWeb.Services
 {
     public interface IUploadsManager
     {

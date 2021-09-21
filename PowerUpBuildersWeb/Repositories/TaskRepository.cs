@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using PowerUpBuildersWeb.Models;
 
-namespace PowerUpBuildersWeb.Models
+namespace PowerUpBuildersWeb.Repositories
 {
     public class TaskRepository : ITaskRepository
     {
