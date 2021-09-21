@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using PowerUpBuildersWeb.Models;
 using PowerUpBuildersWeb.Repositories;
 using PowerUpBuildersWeb.Services;
+using PowerUpBuildersWeb.WorkUnits;
 
 namespace PowerUpBuildersWeb
 {
@@ -38,6 +39,8 @@ namespace PowerUpBuildersWeb
 
 
             services.AddScoped<IUploadsManager, UploadsManager>();
+
+            services.AddScoped<IFilesManager, FilesManager>();
 
             services.AddRazorPages();
         }

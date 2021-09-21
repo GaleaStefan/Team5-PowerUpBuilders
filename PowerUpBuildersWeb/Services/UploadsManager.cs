@@ -8,12 +8,10 @@ namespace PowerUpBuildersWeb.Services
 {
     public class UploadsManager : IUploadsManager
     {
-        private readonly IWebHostEnvironment _environment;
-        private string _uploadsPath;
+        private readonly string _uploadsPath;
 
-        public UploadsManager(IConfiguration config, IWebHostEnvironment environment)
+        public UploadsManager(IConfiguration config)
         {
-            _environment = environment;
             _uploadsPath = config["UploadsPath"];
         }
 
@@ -27,12 +25,9 @@ namespace PowerUpBuildersWeb.Services
             }
         }
 
-        public void DeleteFiles(string[] names)
-            => Array.ForEach(names, name => DeleteFile(name));
-
-        public void UploadFile(IFormFile file, DateTime timeStamp)
+        public void UploadFile(IFormFile file, string seed)
         {
-            var uniqueFileName = timeStamp.ToString("yyyyMMddHHmmss") + "_" + file.FileName;
+            var uniqueFileName = seed + "_" + file.FileName;
             var path = Path.Combine(_uploadsPath, uniqueFileName);
             file.CopyToAsync(new FileStream(path, FileMode.Create));
         }
