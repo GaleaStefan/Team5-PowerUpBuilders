@@ -32,14 +32,25 @@ namespace PowerUpBuildersWeb.Models
                 .WithMany(t => t.Employees)
                 .HasForeignKey(et => et.TaskId);
 
-            Project project = new() { Id = 1, Name = "TestProj", Tasks = new() };
+            modelBuilder.Entity<Project>().HasData(
+                new Project() { Id = 1, Name = "TestProj" },
+                new Project() { Id = 2, Name = "Test2" },
+                new Project() { Id = 3, Name = "Project num 3"},
+                new Project() { Id = 4, Name = "Proj4"}
+                );
 
-            modelBuilder.Entity<Project>().HasData(project);
-            modelBuilder.Entity<Project>().HasData(new Project() { Id = 2, Name = "Test2" });
+            modelBuilder.Entity<Employee>().HasData(
+                new Employee() { Id = 1, Name = "Pop Constantin" },
+                new Employee() { Id = 2, Name = "Popescu Ion"},
+                new Employee() { Id = 3, Name = "Aurel Vlad"},
+                new Employee() { Id = 4, Name = "Popescu Ana"}
+                );
 
-            modelBuilder.Entity<Employee>().HasData(new Employee() { Id = 1, Name = "Stefan" });
-
-            modelBuilder.Entity<Task>().HasData(new Task() { Id = 1, ProjectId = 1, Status = TaskStatus.New, TaskNumber = "TK20190101_01", Title = "TaskTitle", Description = "TaskDescription" }) ;
+            modelBuilder.Entity<Task>().HasData(
+                new Task() { Id = 1, ProjectId = 1, Status = TaskStatus.New, TaskNumber = "TK20190101_01", Title = "TaskTitle", Description = "TaskDescription" },
+                new Task() { Id = 2, TaskNumber = "TK202109091100_01", ProjectId = 1, Title = "Task2", Description = "Do this", Status = TaskStatus.Approved},
+                new Task() { Id = 3, TaskNumber = "TK202109091100_02", ProjectId = 1, Title = "Task3", Description = "Do that", Status = TaskStatus.InProgress}
+                ) ;
         }
     }
 }
