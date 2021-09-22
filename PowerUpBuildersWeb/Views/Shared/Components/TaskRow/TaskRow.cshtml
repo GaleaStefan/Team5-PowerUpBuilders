@@ -1,0 +1,29 @@
+﻿@model TaskRowViewModel
+
+<div class="row">
+    <div class="col">
+        @Model.Task.TaskNumber
+    </div>
+
+    <div class="col">
+        @Model.Task.Title
+    </div>
+
+    <div class="col">
+        @Model.ParentProject
+    </div>
+
+    @{
+        string[] badgeColors = new string[]
+        {
+            "badge-info",
+            "badge-danger",
+            "badge-warning",
+            "badge-success"
+        };
+    }
+
+    <div class="col">
+        <span class="badge @badgeColors[(int)Model.Task.Status]">@Model.Task.Status.ToString()</span>
+    </div>
+</div>

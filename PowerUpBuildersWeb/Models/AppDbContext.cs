@@ -51,6 +51,12 @@ namespace PowerUpBuildersWeb.Models
                 new Task() { Id = 2, TaskNumber = "TK202109091100_01", ProjectId = 1, Title = "Task2", Description = "Do this", Status = TaskStatus.Approved},
                 new Task() { Id = 3, TaskNumber = "TK202109091100_02", ProjectId = 1, Title = "Task3", Description = "Do that", Status = TaskStatus.InProgress}
                 ) ;
+
+            modelBuilder.Entity<EmployeeTask>().HasData(
+                new EmployeeTask() { Id = 1, TaskId = 1, EmployeeId = 1, EstimatedHours = 8, ActualHours = 10},
+                new EmployeeTask() { Id = 2, TaskId = 1, EmployeeId = 2, EstimatedHours = 8, ActualHours = 10}
+
+                );
         }
     }
 }

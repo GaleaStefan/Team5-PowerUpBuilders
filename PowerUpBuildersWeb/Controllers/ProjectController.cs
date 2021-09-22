@@ -5,30 +5,22 @@ using Microsoft.AspNetCore.Mvc;
 using PowerUpBuildersWeb.Models;
 using PowerUpBuildersWeb.Repositories;
 using PowerUpBuildersWeb.ViewModel;
+using PowerUpBuildersWeb.WorkUnits;
 
 namespace PowerUpBuildersWeb.Controllers
 {
     public class ProjectController : Controller
     {
-        private readonly IProjectRepository _projectRepo;
-        private readonly IEmployeeTaskRepository _employeeTaskRepo;
-        private readonly IEmployeeRepository _employeeRepo;
-        private readonly ITaskRepository _taskRepo;
+        private readonly IProjectManager _projectManager;
         public ProjectController(
-            IProjectRepository projectRepository, 
-            IEmployeeRepository employeeRepository, 
-            IEmployeeTaskRepository employeeTaskRepo,
-            ITaskRepository taskRepository)
+            IProjectManager manager)
         {
-            _projectRepo = projectRepository;
-            _employeeTaskRepo = employeeTaskRepo;
-            _employeeRepo = employeeRepository;
-            _taskRepo = taskRepository;
+            _projectManager = manager;
         }
 
         public IActionResult Index(int id)
         {
-            Project current = _projectRepo.GetProjectById(id);
+            Project current = _projectManager.GetProject(id);
 
             if (current is null)
                 return RedirectToAction("Index", "Home");
@@ -36,8 +28,8 @@ namespace PowerUpBuildersWeb.Controllers
             ProjectViewModel project = new()
             {
                 Project = current,
-                Tasks = _taskRepo.GetProjectTasks(id),
-                Employees = _employeeRepo.GetEmployees()
+                Tasks = _projectManager.GetProjectTasks(current.Id),
+                Employees = _projectManager.GetProjectAssignedEmployees(current.Id)
             };
 
             return View(project);

@@ -41,6 +41,7 @@ namespace PowerUpBuildersWeb
             services.AddScoped<IUploadsManager, UploadsManager>();
 
             services.AddScoped<IFilesManager, FilesManager>();
+            services.AddScoped<IProjectManager, ProjectManager>();
 
             services.AddControllersWithViews();
           
