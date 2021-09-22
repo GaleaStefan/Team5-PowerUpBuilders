@@ -29,6 +29,9 @@ namespace PowerUpBuildersWeb.Controllers
         public IActionResult Index(int id)
         {
             Project current = _projectRepo.GetProjectById(id);
+
+            if (current is null)
+                return RedirectToAction("Index", "Home");
             
             ProjectViewModel project = new()
             {
