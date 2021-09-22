@@ -20,13 +20,17 @@ namespace PowerUpBuildersWeb.Controllers
             ProjectsViewModel _projectsViewModel = new ProjectsViewModel() { Projects = _projectRepository.GetProjects() };
             return View(_projectsViewModel);        
         }
-        public RedirectToActionResult DeleteProject(int projectId)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public RedirectToActionResult DeleteProject(int id)
         {
-            var selectedProject = _projectRepository.GetProjects().FirstOrDefault(p => p.Id == projectId);
+            var selectedProject = _projectRepository.GetProjects().FirstOrDefault(p => p.Id == id);
             if(selectedProject!=null)
             {
-                _projectRepository.DeleteProject(projectId);
+                _projectRepository.DeleteProject(id);
+                _projectRepository.Save();
             }
+
             return RedirectToAction("Index");
         }
     }
