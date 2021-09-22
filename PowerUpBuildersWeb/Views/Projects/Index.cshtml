@@ -1,0 +1,11 @@
+﻿@model ProjectsViewModel
+
+<div class="text-center">
+    @foreach(var project in Model.Projects)
+     {
+          <div>
+              <h2>@project.Name</h2>
+              <button>Delete</button>
+          </div>
+     }
+</div>
