@@ -39,7 +39,7 @@ namespace PowerUpBuildersWeb.Models
 
             modelBuilder.Entity<Employee>().HasData(new Employee() { Id = 1, Name = "Stefan" });
 
-            modelBuilder.Entity<Task>().HasData(new Task() { Id = 1, ProjectId = 1, Status = TaskStatus.New, TaskNumber = "TK20190101_01", Employees = new(), Files = new() }) ;
+            modelBuilder.Entity<Task>().HasData(new Task() { Id = 1, ProjectId = 1, Status = TaskStatus.New, TaskNumber = "TK20190101_01", Title = "TaskTitle", Description = "TaskDescription" }) ;
         }
     }
 }

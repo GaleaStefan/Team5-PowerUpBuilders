@@ -13,6 +13,13 @@ namespace PowerUpBuildersWeb.Models
 
         [Required]
         public string TaskNumber { get; set; }
+
+        [Required]
+        public string Title { get; set; }
+
+        [Required]
+        public string Description { get; set; }
+
         public TaskStatus Status { get; set; }
         public List<TaskLocalFile> Files { get; set; } = new();
         public List<EmployeeTask> Employees { get; set; } = new();
