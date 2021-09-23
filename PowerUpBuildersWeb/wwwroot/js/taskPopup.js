@@ -8,7 +8,9 @@
                 success: function (response) {
                     $("body").append(response);
                     $(".modal").modal("show");
-                    alert(response);
+                    $(".modal").on("hidden.bs.modal", function () {
+                        $(".modal").remove();
+                    });
                 }
             });
         }
