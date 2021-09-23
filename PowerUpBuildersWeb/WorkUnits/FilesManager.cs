@@ -21,7 +21,7 @@ namespace PowerUpBuildersWeb.WorkUnits
 
         public void AddFile(IFormFile formFile, DateTime timeStamp, FileType fileType, Models.Task task)
         {
-            string time = timeStamp.ToString("yyyyMMddHHmmss");
+            string time = timeStamp.ToString("yyyyMMddHHmmssfff");
             
             TaskLocalFile file = new()
             {
