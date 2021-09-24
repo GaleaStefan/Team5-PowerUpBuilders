@@ -17,9 +17,7 @@
             <div class="border mx-1 mt-1" style="color: var(--bs-gray-900);border-style: solid;">
                 <p>[Description]<br><br></p>
             </div>
-            <div>
-                <img class="d-inline-block" style="height: 110px;width: 150px;margin-top: 10px;margin-left: 10px;border-style: solid;" src="assets/img/profile.jpg"><img class="d-inline-block" style="height: 110px;width: 150px;margin-top: 10px;margin-left: 10px;border-style: solid;" src="assets/img/profile.jpg"><img class="d-inline-block" style="height: 110px;width: 150px;margin-top: 10px;margin-left: 10px;border-style: solid;" src="assets/img/profile.jpg"><img class="d-inline-block" style="height: 110px;width: 150px;margin-top: 10px;margin-left: 10px;border-style: solid;" src="assets/img/profile.jpg"><img class="d-inline-block" style="height: 110px;width: 150px;margin-top: 10px;margin-left: 10px;border-style: solid;" src="assets/img/profile.jpg"><img class="d-inline-block" style="height: 110px;width: 150px;margin-top: 10px;margin-left: 10px;border-style: solid;" src="assets/img/profile.jpg">
-            </div>
+            
         </div>
     </div>
     <div class="col-md-5">
@@ -42,10 +40,16 @@
         <div>
             @foreach (var _task in Model.Tasks)
             {
-                <button class="task-load-button w-100" data-taskId="@_task.Id">
-                    @await Component.InvokeAsync("TaskRow", new { task = _task, projectName = Model.Project.Name })
-                </button>
+                <div class="row">
+                    <div class="col-1"><button class="task-delete btn btn-outline-danger" data-taskId="@_task.Id">X</button></div>
+                    <div class="col-11">
+                        <button class="task-load-button w-100" data-taskId="@_task.Id">
+                            @await Component.InvokeAsync("TaskRow", new { task = _task, projectName = Model.Project.Name })
+                        </button>
+                    </div>
+                </div>
             }
+            <button id="new-task-button" class="btn btn-outline-secondary w-100">+</button>
         </div>
     </div>
 </div>

@@ -13,15 +13,24 @@ namespace PowerUpBuildersWeb.Controllers
     {
         private readonly ITaskManager _taskManager;
         public TaskController(ITaskManager repo)
+            => _taskManager = repo;
+
+        [HttpPost]
+        public void Update(Task task)
         {
-            _taskManager = repo;
+
         }
 
         [HttpPost]
-        public IActionResult Delete(int? id)
+        public string Delete(int id)
         {
-            return RedirectToAction("Index", "Home");
+            Console.WriteLine(id);
+            return "/Home/Index/";
         }
+
+        [HttpGet]
+        public IActionResult Create()
+            => PartialView("_TaskModal", new TaskEditorViewModel() { ModalMode = ModalMode.Edit });
 
         [HttpPost]
         public IActionResult Details(int ID)
@@ -32,8 +41,8 @@ namespace PowerUpBuildersWeb.Controllers
                 AssignedEmployees = _taskManager.GetTaskAssignedEmployees(ID),
                 Employees = _taskManager.GetAllEmployees(),
                 ImagePaths = _taskManager.GetTaskPhotos(ID),
-                FilePaths = _taskManager.GetTaskFiles(ID)
-                
+                FilePaths = _taskManager.GetTaskFiles(ID),
+                ModalMode = ModalMode.ViewEdit
             };
 
             if(model is null)

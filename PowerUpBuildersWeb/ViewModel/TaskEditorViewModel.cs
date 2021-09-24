@@ -8,13 +8,15 @@ namespace PowerUpBuildersWeb.ViewModel
 {
     public class TaskEditorViewModel
     {
-        public Models.Task Task { get; set; }
-        public IEnumerable<Employee> AssignedEmployees { get; set; }
-        public IEnumerable<Employee> Employees { get; set; }
+        public Models.Task Task { get; set; } = new();
+        public IEnumerable<Employee> AssignedEmployees { get; set; } = new List<Employee>();
+        public IEnumerable<Employee> Employees { get; set; } = new List<Employee>();
 
-        public IEnumerable<string> ImagePaths { get; set; }
+        public IEnumerable<string> ImagePaths { get; set; } = new List<string>();
 
-        public IEnumerable<string> FilePaths { get; set; }
+        public IEnumerable<string> FilePaths { get; set; } = new List<string>();
+
+        public ModalMode ModalMode { get; set; }
 
     }
 }
