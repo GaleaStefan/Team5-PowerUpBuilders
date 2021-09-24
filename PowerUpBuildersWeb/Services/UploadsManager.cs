@@ -10,6 +10,8 @@ namespace PowerUpBuildersWeb.Services
     {
         private readonly string _uploadsPath;
 
+        public string UploadsPath { get => _uploadsPath; }
+
         public UploadsManager(IConfiguration config)
         {
             _uploadsPath = config["UploadsPath"];

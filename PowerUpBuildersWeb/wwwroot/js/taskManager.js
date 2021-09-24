@@ -17,6 +17,10 @@
     }
 }();
 
+var TaskManager = function () {
+
+}();
+
 $(document).ready(
     $(".task-load-button").click(function () {
         TaskPopupLoader.getPopupData(this.getAttribute("data-taskId"));

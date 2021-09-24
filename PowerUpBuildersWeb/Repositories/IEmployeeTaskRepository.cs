@@ -10,7 +10,7 @@ namespace PowerUpBuildersWeb.Repositories
     {
         void AssignEmployeeToTask(EmployeeTask link);
         void RemoveEmployeeFromTask(int employeeId, int taskId);
-        IEnumerable<EmployeeTask> GetTaskAssignedEmployeesIds(int taskId);
+        IEnumerable<EmployeeTask> GetTaskLinks(int taskId);
         IEnumerable<EmployeeTask> GetAllLinks();
 
         void SaveChanges();

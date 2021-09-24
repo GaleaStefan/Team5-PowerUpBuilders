@@ -17,7 +17,7 @@ namespace PowerUpBuildersWeb.Repositories
         public IEnumerable<EmployeeTask> GetAllLinks()
             => _context.EmployeesTasks.ToList();
 
-        public IEnumerable<EmployeeTask> GetTaskAssignedEmployeesIds(int taskId)
+        public IEnumerable<EmployeeTask> GetTaskLinks(int taskId)
             => _context.EmployeesTasks.Where(link => link.TaskId == taskId);
 
         public void RemoveEmployeeFromTask(int employeeId, int taskId)

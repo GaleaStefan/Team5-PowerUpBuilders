@@ -13,6 +13,7 @@ namespace PowerUpBuildersWeb.WorkUnits
     {
         private readonly IUploadsManager _uploadsManager;
         private readonly ITaskLocalFileRepository _filesRep;
+
         public FilesManager(IUploadsManager uploadsManager, ITaskLocalFileRepository filesRepository)
         {
             _uploadsManager = uploadsManager;
@@ -62,5 +63,13 @@ namespace PowerUpBuildersWeb.WorkUnits
             }
             _filesRep.Save();
         }
+
+        public IEnumerable<string> GetFiles(int taskId, FileType type)
+            => _filesRep.GetByTaskID(taskId)
+            .Where(file => file.FileType == type)
+            .Select(file => GetUploadsPath() + file.FileName);
+
+        public string GetUploadsPath()
+            => _uploadsManager.UploadsPath;
     }
 }

@@ -1,7 +1,7 @@
 ﻿@model ProjectViewModel
 
 @section Scripts {
-    <script src="~/js/taskPopup.js"></script>
+    <script src="~/js/taskManager.js"></script>
 }
 
 <div class="row">
@@ -31,18 +31,11 @@
                     <p class="col-2">@employee.Id</p>
                     <p class="col-10">@employee.Name</p>
                 </div>
-                <!--<div style="border-style: solid;border-color: var(--bs-red);height: 53px;margin-top: 8px;margin-right: 10px;margin-left: 10px;">
-                    <div class="d-inline-block float-start" style="border-style: solid;border-color: var(--bs-blue);width: 28%;margin-left: 10px;height: 45px;margin-top: 2px;margin-bottom: 2px;">
-                        <p style="margin-top: 7px;"></p>
-                    </div>
-                    <div class="d-inline-block float-start" style="border-style: solid;border-color: var(--bs-blue);width: 28%;margin-left: 10px;height: 45px;margin-top: 2px;margin-bottom: 2px;">
-                        <p style="margin-top: 7px;"></p>
-                    </div>
-                </div>-->
             }
         </div>
     </div>
 </div>
+
 <h1 class="text-center" style="margin: 0px;margin-top: 35px;margin-bottom: -46px;">Tasks</h1>
 <div class="row" style="border-style: solid;height: 300px;margin-top: 53px;overflow-y: scroll;margin-left: 10%;margin-right: 10%;">
     <div class="col">
