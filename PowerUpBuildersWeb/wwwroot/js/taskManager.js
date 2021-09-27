@@ -22,11 +22,6 @@
                 TaskPopupLoader.switchToEditMode();
             });
 
-            $("form").submit(function (event) {
-                TaskManager.modifyTask();
-                event.preventDefault();
-            });
-
             $("#save-button").click(function () {
                 $("form").submit();
             })
@@ -35,7 +30,7 @@
             $.ajax({
                 type: "POST",
                 url: "/Task/Details/",
-                data: { ID: id },
+                data: { projectId: $("#tasks-list").attr("data-parentProject"), ID: id },
                 success: function (response) {
                     TaskPopupLoader.addPopup(response);
                 }
@@ -62,36 +57,12 @@ var TaskManager = function () {
             $.ajax({
                 type: "GET",
                 url: "/Task/Create/",
+                data: { projectId: $("#tasks-list").attr("data-parentProject")},
                 success: function (response) {
                     TaskPopupLoader.addPopup(response);
                 }
             })
         },
-
-        modifyTask: function () {
-            var test = {
-                Id: $("form").attr("data-taskId"),
-                Title: $("input[name=title]").val(),
-                Description: $("textarea[name=description]").val(),
-                Status: 0,
-                ProjectId: 0
-                //assigned: $("select[name=employees]").val(),
-                //removedFiles: {},
-                //uploads: $("#files-input").prop('files')
-            };
-            console.log(test);
-
-            $.ajax({
-                type: "POST",
-                url: "/Task/Update/",
-                contentType: "application/json",
-                processData: false,
-                data: { task: JSON.stringify(test) },
-                success: function () {
-
-                }
-            });
-        }
     }
 }();
 

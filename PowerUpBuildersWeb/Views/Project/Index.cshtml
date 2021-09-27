@@ -35,7 +35,7 @@
 </div>
 
 <h1 class="text-center" style="margin: 0px;margin-top: 35px;margin-bottom: -46px;">Tasks</h1>
-<div class="row" style="border-style: solid;height: 300px;margin-top: 53px;overflow-y: scroll;margin-left: 10%;margin-right: 10%;">
+<div id="tasks-list" data-parentProject="@Model.Project.Id" class="row" style="border-style: solid;height: 300px;margin-top: 53px;overflow-y: scroll;margin-left: 10%;margin-right: 10%;">
     <div class="col">
         <div>
             @foreach (var _task in Model.Tasks)

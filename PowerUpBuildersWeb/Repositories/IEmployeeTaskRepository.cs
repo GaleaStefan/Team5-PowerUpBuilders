@@ -13,6 +13,7 @@ namespace PowerUpBuildersWeb.Repositories
         IEnumerable<EmployeeTask> GetTaskLinks(int taskId);
         IEnumerable<EmployeeTask> GetAllLinks();
 
+        void RemoveTaskLinks(int taksId);
         void SaveChanges();
     }
 }

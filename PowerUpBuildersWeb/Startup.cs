@@ -42,7 +42,6 @@ namespace PowerUpBuildersWeb
 
             services.AddScoped<IFilesManager, FilesManager>();
             services.AddScoped<IProjectManager, ProjectManager>();
-            services.AddScoped<ITaskManager, TaskManager>();
 
             services.AddControllersWithViews();
           

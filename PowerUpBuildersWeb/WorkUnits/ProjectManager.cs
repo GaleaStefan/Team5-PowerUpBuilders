@@ -13,37 +13,47 @@ namespace PowerUpBuildersWeb.WorkUnits
         private readonly IEmployeeTaskRepository _employeeTaskRepo;
         private readonly IEmployeeRepository _employeeRepo;
         private readonly ITaskRepository _taskRepo;
+        private readonly IFilesManager _filesManager;
+
+        public IProjectRepository ProjectRepo => _projectRepo;
+        public IEmployeeTaskRepository EmployeeTaskRepo => _employeeTaskRepo;
+        public IEmployeeRepository EmployeeRepo => _employeeRepo;
+        public ITaskRepository TaskRepo => _taskRepo;
+        public IFilesManager FilesManager => _filesManager;
 
         public ProjectManager(
             IProjectRepository projectRepo, 
             IEmployeeTaskRepository employeeTaskRepo, 
             IEmployeeRepository employeeRepo, 
-            ITaskRepository taskRepo)
+            ITaskRepository taskRepo,
+            IFilesManager filesManager)
         {
             _projectRepo = projectRepo;
             _employeeTaskRepo = employeeTaskRepo;
             _employeeRepo = employeeRepo;
             _taskRepo = taskRepo;
+            _filesManager = filesManager;
         }
 
         public IEnumerable<Employee> GetProjectAssignedEmployees(int projectId)
         {
-            var tasksIds = _taskRepo.GetTasks()
+            var tasksIds = TaskRepo.GetTasks()
                 .Where(task => task.ProjectId == projectId)
                 .Select(task => task.Id);
 
-            var employeesIds = _employeeTaskRepo.GetAllLinks()
+            var employeesIds = EmployeeTaskRepo.GetAllLinks()
                 .Where(link => tasksIds.Contains(link.TaskId))
                 .GroupBy(link => link.EmployeeId)
                 .Select(group => group.First().Id);
 
-            return _employeeRepo.GetEmployees().Where(employee => employeesIds.Contains(employee.Id));
+            return EmployeeRepo.GetEmployees().Where(employee => employeesIds.Contains(employee.Id));
         }
 
-        public IEnumerable<Models.Task> GetProjectTasks(int projectId)
-            => _taskRepo.GetProjectTasks(projectId);
+        public IEnumerable<Employee> GetTaskAssignedEmployees(int taskId)
+        {
+            var employeeIds = EmployeeTaskRepo.GetTaskLinks(taskId).Select(link => link.EmployeeId);
 
-        public Project GetProject(int id)
-            => _projectRepo.GetProjectById(id);
+            return EmployeeRepo.GetEmployees().Where(employee => employeeIds.Contains(employee.Id));
+        }
     }
 }

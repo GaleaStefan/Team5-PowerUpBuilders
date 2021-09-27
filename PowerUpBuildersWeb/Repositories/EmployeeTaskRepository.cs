@@ -30,6 +30,9 @@ namespace PowerUpBuildersWeb.Repositories
                 _context.EmployeesTasks.Remove(employeeTask);
         }
 
+        public void RemoveTaskLinks(int taksId)
+            => _context.EmployeesTasks.RemoveRange(_context.EmployeesTasks.Where(link => link.TaskId == taksId));
+
         public void SaveChanges()
             => _context.SaveChanges();
     }
