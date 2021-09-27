@@ -13,6 +13,29 @@ namespace PowerUpBuildersWeb.Repositories
             _context = context;
         }
 
+        public string GetTaskNumber()
+        {
+            DateTime now = DateTime.Now;
+            string strDate = now.ToString("YYYYMMdd");
+            int dailyCount = 0;
+            string taskNumber = "";
+
+            for(int i = 0; i < _context.Tasks.Count(); i++)
+            {
+                if (dailyCount < 10)
+                {
+                    taskNumber =  "TK" + strDate + "0" + dailyCount.ToString();
+                }
+                else
+                {
+                    taskNumber = "TK" + strDate + dailyCount.ToString();
+                }
+                dailyCount++;
+            }
+
+            return taskNumber;
+        }
+
         public void DeleteTask(int taskId)
         {
             Task task = _context.Tasks.Find(taskId);
@@ -29,6 +52,7 @@ namespace PowerUpBuildersWeb.Repositories
 
         public void InsertTask(Task task)
         {
+            task.TaskNumber = GetTaskNumber();
             _context.Tasks.Add(task);
         }
 
