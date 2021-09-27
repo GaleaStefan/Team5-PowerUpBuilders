@@ -1,5 +1,39 @@
 ﻿@model TaskEditorViewModel
 
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#jsGrid").jsGrid({
+                width: "100%",
+                height: "400px",
+
+                inserting: false,
+                editing: true,
+                sorting: true,
+                paging: true,
+                sorting: true,
+
+                fields: [
+                    {
+                        align: "center",
+                        name: "Name",
+                        type: "disabled"
+                    },
+                    { type: "control" }
+                ]
+            });
+    });
+
+    @foreach (var employee in Model.Employees)
+    {
+        @if(Model.LinkedEmployees.Contains(employee.Id))
+        {
+              @:$("#jsGrid").jsGrid("insertItem", { Name: "@employee.Name" });
+        }
+    }
+
+</script>
+
 <div class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -19,67 +53,32 @@
 
 
             <div id="edit-body" class="modal-body @(Model.ModalMode == ModalMode.Edit ? "d-block" : "d-none")">
-                <form id="task-form" data-taskId="@(Model.ModalMode == ModalMode.Edit ? 0 : Model.Task.Id)">
+                <form id="task-form" asp-controller="Project" asp-action="UpdateTask" method="post" enctype="multipart/form-data">
+                    <input type="number" asp-for="Task.Id" value="@Model.Task.Id" hidden />
+                    <input type="text" asp-for="Task.TaskNumber" value="@Model.Task.TaskNumber" hidden />
+                    <input type="number" asp-for="Task.Status" value="@Model.Task.Status" hidden />
+                    <input type="number" asp-for="Task.ProjectId" value="@Model.ProjectId" hidden />
+
                     <div class="form-group">
                         <label for="task-title">Title:</label>
-                        <input id="task-title" type="text" name="title" class="form-control" value="@Model.Task.Title" />
+                        <input asp-for="Task.Title" id="task-title" type="text" class="form-control" value="@Model.Task.Title" />
+                        <span asp-validation-for="Task.Title"></span>
                     </div>
 
                     <div class="form-group">
                         <label for="task-description">Description</label>
-                        <textarea form="#task-form" id="task-description" name="description" class="form-control" rows="4">
+                        <textarea asp-for="Task.Description" id="task-description" class="form-control" rows="4">
                             @Model.Task.Description
                         </textarea>
                     </div>
 
                     <div id="jsGrid">
-                        <script>
-                            $(document).ready(function () {
-                                 var clients = [
-                                { "Name": "Otto Clay", "Age": 25},
-                                { "Name": "Connor Johnston", "Age": 45},
-                            ];
-
-
-                            @foreach (var employee in Model.Employees)
-                            {
-                                @:clients.push({"Name": @employee.Name, "ID": @employee.Id});
-                            }
-
-                            var countries = [
-                                { Name: "", Id: 0 },
-                                { Name: "United States", Id: 1 },
-                                { Name: "Canada", Id: 2 },
-                                { Name: "United Kingdom", Id: 3 }
-                            ];
-
-
-                            $("#jsGrid").jsGrid({
-                                width: "100%",
-                                height: "400px",
-
-                                inserting: true,
-                                editing: true,
-                                sorting: true,
-                                paging: true,
-
-                                data: clients,
-
-                                fields: [
-                                    { name: "Name", type: "text", width: 150, validate: "required" },
-                                    { name: "ID", type: "number", width: 50 },
-                                    { type: "control" }
-                                ]
-                            });
-                            });
-
-                        </script>
                     </div>
 
                     <select class="form-select w-100" multiple name="employees">
                         @foreach (var employee in Model.Employees)
                         {
-                            @if (Model.AssignedEmployees.Contains(employee))
+                            @if (Model.LinkedEmployees.Contains(employee.Id))
                             {
                                 <option value="@employee.Id" selected>@employee.Name</option>
                             }
@@ -91,14 +90,14 @@
                         }
                     </select>
 
-                    <select class="form-select w-100" multiple name="images">
-                        @foreach (var photo in Model.ImagePaths)
-                        {
-                            <option value="@photo">@photo</option>
-                        }
-                    </select>
+                    @*<select class="form-select w-100" multiple name="images">
+                            @foreach (var photo in Model.ImagePaths)
+                            {
+                                <option value="@photo">@photo</option>
+                            }
+                        </select>*@
 
-                    <input id="files-input" type="file" name="uploads" multiple />
+                    <input asp-for="Uploads" id="files-input" type="file" name="uploads" multiple />
 
                 </form>
             </div>
@@ -114,31 +113,35 @@
                         <div class="col-sm-6">
                             <div>Employees</div>
                             <ul>
-                                @foreach (var employee in Model.AssignedEmployees)
+                                @foreach (var employee in Model.Employees)
                                 {
-                                    <li>@employee.Name</li>
+                                    @if (Model.LinkedEmployees.Contains(employee.Id))
+                                    {
+                                        <li>@employee.Name</li>
+                                    }
+
                                 }
                             </ul>
                         </div>
                     </div>
 
-                    <div class="container-fluid w-100">
-                        <ul>
-                            @foreach (var photo in Model.ImagePaths)
-                            {
-                                <li>@photo</li>
-                            }
-                        </ul>
-                    </div>
+                    @*<div class="container-fluid w-100">
+                            <ul>
+                                @foreach (var photo in Model.ImagePaths)
+                                {
+                                    <li>@photo</li>
+                                }
+                            </ul>
+                        </div>
 
-                    <div class="container-fluid w-100">
-                        <ul>
-                            @foreach (var file in Model.FilePaths)
-                            {
-                                <li>@file</li>
-                            }
-                        </ul>
-                    </div>
+                        <div class="container-fluid w-100">
+                            <ul>
+                                @foreach (var file in Model.FilePaths)
+                                {
+                                    <li>@file</li>
+                                }
+                            </ul>
+                        </div>*@
                 </div>
             }
 

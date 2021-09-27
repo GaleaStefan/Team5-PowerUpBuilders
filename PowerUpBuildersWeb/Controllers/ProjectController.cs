@@ -14,10 +14,10 @@ namespace PowerUpBuildersWeb.Controllers
 
         private static readonly List<string> _imgExtensions = new()
         {
-            "png",
-            "jpg",
-            "jpeg",
-            "gif"
+            ".png",
+            ".jpg",
+            ".jpeg",
+            ".gif"
         };
 
         public ProjectController(

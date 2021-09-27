@@ -78,4 +78,4 @@ $(function () {
     $(".task-delete").click(function () {
         TaskManager.triggerTaskDelete(this.getAttribute("data-taskId"));
     })
-})
+});

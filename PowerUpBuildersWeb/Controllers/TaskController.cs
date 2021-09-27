@@ -34,7 +34,7 @@ namespace PowerUpBuildersWeb.Controllers
             {
                 ProjectId = projectId,
                 Task = _projectManager.TaskRepo.GetTaskByID(ID),
-                LinkedEmployees = _projectManager.EmployeeTaskRepo.GetTaskLinks(ID).Select(link=>link.Id),
+                LinkedEmployees = _projectManager.EmployeeTaskRepo.GetTaskLinks(ID).Select(link=>link.EmployeeId),
                 Employees = _projectManager.EmployeeRepo.GetEmployees(),
                 //ImagePaths = _projectManager.FilesManager.Get(ID),
                 //FilePaths = _projectManager.GetTaskFiles(ID),
