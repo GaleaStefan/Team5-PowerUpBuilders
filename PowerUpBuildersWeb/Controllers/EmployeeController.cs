@@ -14,12 +14,9 @@ namespace PowerUpBuildersWeb.Controllers
     {
         private readonly IEmployeeRepository _employeeRepository;
 
-        //private readonly AppDbContext _context;
-
-        public EmployeeController(AppDbContext context, IEmployeeRepository employeeRepository)
+        public EmployeeController(IEmployeeRepository employeeRepository)
         {
             _employeeRepository = employeeRepository;
-            //_context = context;
         }
 
         public IActionResult Index()
@@ -73,7 +70,7 @@ namespace PowerUpBuildersWeb.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
             return View(employee);
         }
@@ -98,17 +95,40 @@ namespace PowerUpBuildersWeb.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int employeeId)
+        public IActionResult DeleteConfirmed(int id)
         {
-            var employee = _employeeRepository.GetEmployees().FirstOrDefault(e => e.Id == employeeId);
+            var employee = _employeeRepository.GetEmployeeById(id);
 
             if(employee != null)
             {
-                _employeeRepository.DeleteEmployee(employeeId);
+                _employeeRepository.DeleteEmployee(id);
                 _employeeRepository.Save();
             }
+            else
+            {
+                return NotFound();
+            }
 
-            return RedirectToAction("Index");
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult AddEmployee()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AddEmployee([Bind("Id,Name")] Employee employee)
+        {
+            if (ModelState.IsValid)
+            {
+                _employeeRepository.InsertEmployee(employee);
+                _employeeRepository.Save();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(employee);
         }
     }
 }

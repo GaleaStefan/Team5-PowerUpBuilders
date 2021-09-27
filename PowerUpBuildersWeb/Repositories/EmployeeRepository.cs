@@ -20,10 +20,11 @@ namespace PowerUpBuildersWeb.Repositories
             return _appDbContext.Employees.ToList();
         }
 
-        public void DeleteEmployee(int employeeId)
+        public void DeleteEmployee(int? employeeId)
         {
             Employee employee = _appDbContext.Employees.Find(employeeId);
             _appDbContext.Employees.Remove(employee);
+            //_appDbContext.SaveChanges();
         }
 
         public Employee GetEmployeeById(int? employeeId)
