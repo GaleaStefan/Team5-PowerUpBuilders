@@ -1,5 +1,8 @@
 ﻿@model EmployeeViewModel
 
+@{ 
+    ViewData["Title"] = "Index";
+}
 
     <div>
         <div class="row">
@@ -31,7 +34,7 @@
                 <div class="row" style="margin-left: 10%;margin-right: 10%;">
                     <div class="col">
                         <div style="border-style: solid;height: 508px;width: 90%;text-align: center;margin-left: 5%;margin-top: 34px;overflow-y: scroll;">
-                            @foreach(var employee in Model.Employees)
+                            @foreach (var employee in Model.Employees)
                             {
                                 <div style="border-style: solid;border-color: var(--bs-red);height: 53px;margin-top: 8px;margin-right: 10px;margin-left: 10px;">
                                     <div class="d-inline-block float-start" style="border-style: solid;border-color: var(--bs-blue);width: 28%;margin-left: 10px;height: 45px;margin-top: 2px;margin-bottom: 2px;">
@@ -39,6 +42,13 @@
                                     </div>
                                     <div class="d-inline-block float-start" style="border-style: solid;border-color: var(--bs-blue);width: 28%;margin-left: 10px;height: 45px;margin-top: 2px;margin-bottom: 2px;">
                                         <p style="margin-top: 7px;">@employee.Name</p>
+                                    </div>
+                                    <div class="d-inline-block float-start" style="border-style: solid;border-color: var(--bs-blue);width: 28%;margin-left: 10px;height: 45px;margin-top: 2px;margin-bottom: 2px;">
+                                        @*<button class="btn btn-primary" aria-expanded="false" type="button">Edit</button>*@
+                                        @*<button class="btn btn-primary" aria-expanded="false" type="button">Delete</button>*@
+
+                                        <a asp-action="Edit" asp-route-id="@employee.Id">Edit</a> |
+                                        <a asp-action="Delete" asp-route-id="@employee.Id">Delete</a>
                                     </div>
                                 </div>
                             }
