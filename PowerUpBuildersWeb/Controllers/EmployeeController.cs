@@ -35,7 +35,6 @@ namespace PowerUpBuildersWeb.Controllers
             }
 
             var employee = _employeeRepository.GetEmployeeById(id);
-            //var employee = _context.Employees.Find(id);
             if (employee == null)
             {
                 return NotFound();
@@ -84,7 +83,6 @@ namespace PowerUpBuildersWeb.Controllers
             }
 
             var employee = _employeeRepository.GetEmployeeById(id);
-            //var employee = _context.Employees.FirstOrDefault(e => e.Id == id);
             if (employee == null)
             {
                 return NotFound();

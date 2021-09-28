@@ -24,7 +24,6 @@ namespace PowerUpBuildersWeb.Repositories
         {
             Employee employee = _appDbContext.Employees.Find(employeeId);
             _appDbContext.Employees.Remove(employee);
-            //_appDbContext.SaveChanges();
         }
 
         public Employee GetEmployeeById(int? employeeId)
