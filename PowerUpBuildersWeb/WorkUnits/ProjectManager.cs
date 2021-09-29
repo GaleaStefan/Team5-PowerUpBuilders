@@ -22,9 +22,9 @@ namespace PowerUpBuildersWeb.WorkUnits
         public IFilesManager FilesManager => _filesManager;
 
         public ProjectManager(
-            IProjectRepository projectRepo, 
-            IEmployeeTaskRepository employeeTaskRepo, 
-            IEmployeeRepository employeeRepo, 
+            IProjectRepository projectRepo,
+            IEmployeeTaskRepository employeeTaskRepo,
+            IEmployeeRepository employeeRepo,
             ITaskRepository taskRepo,
             IFilesManager filesManager)
         {
@@ -37,14 +37,13 @@ namespace PowerUpBuildersWeb.WorkUnits
 
         public IEnumerable<Employee> GetProjectAssignedEmployees(int projectId)
         {
-            var tasksIds = TaskRepo.GetTasks()
-                .Where(task => task.ProjectId == projectId)
-                .Select(task => task.Id);
+            var tasksIds = TaskRepo.GetProjectTasks(projectId).Select(task => task.Id);
 
-            var employeesIds = EmployeeTaskRepo.GetAllLinks()
+            var employeesIds = EmployeeTaskRepo
+                .GetAllLinks()
                 .Where(link => tasksIds.Contains(link.TaskId))
-                .GroupBy(link => link.EmployeeId)
-                .Select(group => group.First().Id);
+                .Select(link => link.EmployeeId)
+                .Distinct();
 
             return EmployeeRepo.GetEmployees().Where(employee => employeesIds.Contains(employee.Id));
         }

@@ -38,7 +38,7 @@
 <div id="tasks-list" data-parentProject="@Model.Project.Id" class="row" style="border-style: solid;height: 300px;margin-top: 53px;overflow-y: scroll;margin-left: 10%;margin-right: 10%;">
     <div class="col">
         <div>
-            @foreach (var _task in Model.Tasks)
+            @foreach (var _task in Model.Project.Tasks)
             {
                 <div class="row">
                     <div class="col-1"><button class="task-delete btn btn-outline-danger" data-taskId="@_task.Id">X</button></div>

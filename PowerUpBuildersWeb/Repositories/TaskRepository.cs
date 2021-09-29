@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using PowerUpBuildersWeb.Models;
 
 namespace PowerUpBuildersWeb.Repositories
@@ -43,9 +44,11 @@ namespace PowerUpBuildersWeb.Repositories
         }
 
         public Task GetTaskByID(int taskId)
-        {
-            return _context.Tasks.Find(taskId);
-        }
+            => _context.Tasks
+            .Where(t => t.Id == taskId)
+            .Include(t => t.Files)
+            .Include(t => t.Employees)
+            .First();
 
         public IEnumerable<Task> GetTasks()
             => _context.Tasks.ToList();

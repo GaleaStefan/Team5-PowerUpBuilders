@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using PowerUpBuildersWeb.Models;
 
 namespace PowerUpBuildersWeb.Repositories
@@ -49,6 +50,10 @@ namespace PowerUpBuildersWeb.Repositories
             _context.SaveChanges();
         }
 
-        
+        public Project GetProjectWithTasks(int projectId)
+            => _context.Projects
+            .Where(p => p.Id == projectId)
+            .Include(project => project.Tasks)
+            .First();
     }
 }

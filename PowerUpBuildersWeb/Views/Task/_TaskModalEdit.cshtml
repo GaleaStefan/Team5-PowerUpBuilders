@@ -1,0 +1,26 @@
+﻿@model TaskModalEditVM
+
+<div id="edit-body" class="modal-body @(Model.ModalMode == ModalMode.Edit ? "d-block" : "d-none")">
+    <form id="task-form" enctype="multipart/form-data">
+        <input type="number" asp-for="Task.Id" value="@Model.Task.Id" hidden />
+        <input type="text" asp-for="Task.TaskNumber" value="@Model.Task.TaskNumber" hidden />
+        <input type="number" asp-for="Task.Status" value="@((int)Model.Task.Status)" hidden />
+        <input type="number" asp-for="Task.ProjectId" value="@Model.Task.ProjectId" hidden />
+
+        <div class="form-group">
+            <label asp-for="Task.Title">Title:</label>
+            <input asp-for="Task.Title" type="text" class="form-control" value="@Model.Task.Title" />
+            <span asp-validation-for="Task.Title"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Task.Description">Description</label>
+            <textarea asp-for="Task.Description" class="form-control" rows="4">@Model.Task.Description</textarea>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Uploads">Upload new files:</label>
+            <input asp-for="Uploads" class="form-control-file" type="file" multiple />
+        </div>
+    </form>
+</div>

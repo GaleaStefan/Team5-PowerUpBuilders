@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using PowerUpBuildersWeb.Repositories;
 using PowerUpBuildersWeb.ViewModel;
 using PowerUpBuildersWeb.WorkUnits;
 
@@ -23,22 +18,13 @@ namespace PowerUpBuildersWeb.Controllers
             return "/Home/Index/";
         }
 
-        [HttpGet]
-        public IActionResult Create(int projectId)
-            => PartialView("_TaskModal", new TaskEditorViewModel() {ProjectId = projectId, Employees = _projectManager.EmployeeRepo.GetEmployees(), ModalMode = ModalMode.Edit });
-
         [HttpPost]
-        public IActionResult Details(int projectId, int ID)
+        public IActionResult Details(int projectId, int taskId)
         {
-            TaskEditorViewModel model = new()
+            TaskModalViewModel model = new()
             {
-                ProjectId = projectId,
-                Task = _projectManager.TaskRepo.GetTaskByID(ID),
-                LinkedEmployees = _projectManager.EmployeeTaskRepo.GetTaskLinks(ID).Select(link=>link.EmployeeId),
-                Employees = _projectManager.EmployeeRepo.GetEmployees(),
-                //ImagePaths = _projectManager.FilesManager.Get(ID),
-                //FilePaths = _projectManager.GetTaskFiles(ID),
-                ModalMode = ModalMode.ViewEdit
+                Task = taskId > 0 ? _projectManager.TaskRepo.GetTaskByID(taskId) : new Models.Task() { ProjectId = projectId },
+                ModalMode = taskId > 0 ? ModalMode.ViewEdit : ModalMode.Edit
             };
 
             if(model is null)

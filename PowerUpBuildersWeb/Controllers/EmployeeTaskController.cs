@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using PowerUpBuildersWeb.Models;
 using PowerUpBuildersWeb.Repositories;
 
 namespace PowerUpBuildersWeb.Controllers
@@ -15,6 +16,10 @@ namespace PowerUpBuildersWeb.Controllers
         {
             _links = links;
         }
+
+        [HttpGet("api/taskEmployees/{id}")]
+        public IEnumerable<EmployeeTask> GetTaskEmployees(int id)
+            => _links.GetTaskLinks(id);
 
         [HttpPost]
         public void UpdateLinks(int taskId, int[] employees)

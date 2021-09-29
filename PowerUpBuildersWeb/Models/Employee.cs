@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 namespace PowerUpBuildersWeb.Models
 {
@@ -9,6 +10,8 @@ namespace PowerUpBuildersWeb.Models
 
         [Required]
         public string Name { get; set; }
+
+        [JsonIgnore]
         public List<EmployeeTask> Tasks { get; set; } = new();
 
     }

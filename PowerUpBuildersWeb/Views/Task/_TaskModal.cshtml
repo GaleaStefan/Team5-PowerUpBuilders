@@ -1,0 +1,35 @@
+﻿@model TaskModalViewModel
+
+<div class="modal" tabindex="-1" role="dialog" data-taskId="@Model.Task.Id">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@(Model.ModalMode == ModalMode.ViewEdit ? Model.Task.Title : "Task Editor")</h5>
+
+                @if (Model.ModalMode == ModalMode.ViewEdit)
+                {
+                    <span class="badge badge-info">@Model.Task.Status.ToString()</span>
+                }
+
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            @await Html.PartialAsync("_TaskModalEdit", new TaskModalEditVM() { Task = Model.Task, ModalMode = Model.ModalMode });
+            
+
+            @if (Model.ModalMode == ModalMode.ViewEdit)
+            {
+            @await Html.PartialAsync("_TaskModalRead", Model.Task)
+            }
+
+            <div class="modal-footer">
+                <button id="edit-button" type="button" class="btn btn-primary @(Model.ModalMode == ModalMode.ViewEdit ? "d-block" : "d-none")">Edit</button>
+                <button id="save-button" type="button" class="btn btn-primary @(Model.ModalMode == ModalMode.Edit ? "d-block" : "d-none")">Save</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

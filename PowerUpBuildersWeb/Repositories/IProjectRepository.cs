@@ -7,6 +7,9 @@ namespace PowerUpBuildersWeb.Repositories
     {
         IEnumerable<Project> GetProjects();
         Project GetProjectById(int projectId);
+
+        Project GetProjectWithTasks(int projectId);
+
         void InsertProject(Project project);
         void DeleteProject(int projectId);
         void UpdateProject(Project project);

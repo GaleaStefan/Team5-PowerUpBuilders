@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using PowerUpBuildersWeb.Models;
 using PowerUpBuildersWeb.Repositories;
 using PowerUpBuildersWeb.ViewModel;
@@ -18,6 +19,11 @@ namespace PowerUpBuildersWeb.Controllers
         {
             _employeeRepository = employeeRepository;
         }
+
+        [HttpGet("/api/employee/list")]
+        public string List()
+         => JsonConvert.SerializeObject(_employeeRepository.GetEmployees());
+
 
         public IActionResult Index()
         {

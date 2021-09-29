@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using PowerUpBuildersWeb.Models;
 using PowerUpBuildersWeb.ViewModel;
 using PowerUpBuildersWeb.WorkUnits;
@@ -28,7 +30,7 @@ namespace PowerUpBuildersWeb.Controllers
 
         public IActionResult Index(int id)
         {
-            Project current = _projectManager.ProjectRepo.GetProjectById(id);
+            Project current = _projectManager.ProjectRepo.GetProjectWithTasks(id);
 
             if (current is null)
                 return RedirectToAction("Index", "Home");
@@ -36,7 +38,6 @@ namespace PowerUpBuildersWeb.Controllers
             ProjectViewModel project = new()
             {
                 Project = current,
-                Tasks = _projectManager.TaskRepo.GetProjectTasks(current.Id),
                 Employees = _projectManager.GetProjectAssignedEmployees(current.Id)
             };
 
@@ -44,29 +45,9 @@ namespace PowerUpBuildersWeb.Controllers
         }
 
         [HttpPost]
-        public void UpdateTask(TaskEditorViewModel data)
+        public void UpdateTask(TaskModalEditVM data)
         {
-            if(!ModelState.IsValid)
-            {
-                return;
-            }
-
-            if(data.Task.Id == 0) // New
-            {
-                _projectManager.TaskRepo.InsertTask(data.Task);
-            }
-            else
-            {
-                _projectManager.TaskRepo.UpdateTask(data.Task);
-            }
-
-            _projectManager.TaskRepo.Save();
-
-            foreach (var file in data.Uploads)
-            {
-                FileType fileType = GetFileType(file);
-                _projectManager.FilesManager.AddFile(file, DateTime.Now, fileType, _projectManager.TaskRepo.GetTaskByID(data.Task.Id));
-            } 
+            data.ToString();
         }
 
         private FileType GetFileType(IFormFile file)

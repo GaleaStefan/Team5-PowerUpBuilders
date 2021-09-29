@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using PowerUpBuildersWeb.Models;
 
 namespace PowerUpBuildersWeb.Repositories
@@ -17,7 +18,7 @@ namespace PowerUpBuildersWeb.Repositories
 
         public IEnumerable<Employee> GetEmployees()
         {
-            return _appDbContext.Employees.ToList();
+            return _appDbContext.Employees.Include(e => e.Tasks).ToList();
         }
 
         public void DeleteEmployee(int? employeeId)
