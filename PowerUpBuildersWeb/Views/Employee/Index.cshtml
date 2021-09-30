@@ -1,45 +1,77 @@
 ﻿@model EmployeeViewModel
 
-@{ 
+@{
     ViewData["Title"] = "Index";
 }
 
-    <div>
-        <div class="row">
-            <div class="col">
-                <header style="text-align: center;">
-                    <h1 style="margin-top: 17px;">All Employees</h1>
-                </header>
-            </div>
+@section Scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+        $("#jsGridEmployee").jsGrid({
+                width: "100%",
+                height: "400px",
+
+                inserting: true,
+                filtering: true,
+                editing: true,
+                sorting: true,
+
+            deleteConfirm: "Do you really want to delete the client?",
+
+            fields: [
+                { name: "Id", type: "number", width: 50, editing: false },
+                { name: "Name", type: "text", width: 150, validate: "required" },
+                { type: "control" }
+            ]
+            });
+    });
+
+    @foreach (var employee in Model.Employees)
+    {
+        @:$("#jsGridEmployee").jsGrid("insertItem", { Id: @employee.Id, Name: "@employee.Name" });
+    }
+
+    </script>
+}
+
+
+<div>
+    <div class="row">
+        <div class="col">
+            <header style="text-align: center;">
+                <h1 style="margin-top: 17px;">All Employees</h1>
+            </header>
         </div>
+    </div>
 
-        <div class="row" style="margin-left: 10%;margin-right: 10%;">
-            <div class="col">
-                <h3 style="margin-left: 48px;">Filters</h3>
-            </div>
+    @*<div class="row" style="margin-left: 10%;margin-right: 10%;">
+        <div class="col">
+            <h3 style="margin-left: 48px;">Filters</h3>
         </div>
+    </div>*@
 
-        
-
-        <div class="row">
-            <div class="col">
-                <div class="container" style="margin-left: 10%;margin-right: 10%;text-align: left;">
-                    <div class="row" style="margin-left: 10%;">
-                        <div class="col-md-6" style="width: 142px;">
-                            <div class="dropdown">
-                                <button class="btn btn-primary dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button">Project</button>
-                                @*<div class="dropdown-menu"><a class="dropdown-item" href="#">First Item</a><a class="dropdown-item" href="#">Second Item</a><a class="dropdown-item" href="#">Third Item</a></div>*@
-                            </div>
+    <div class="row">
+        <div class="col">
+            <div class="container" style="margin-left: 10%;margin-right: 10%;text-align: left;">
+                <div class="row" style="margin-left: 10%;">
+                    @*<div class="col-md-6" style="width: 142px;">
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button">Project</button>
+                            <div class="dropdown-menu"><a class="dropdown-item" href="#">First Item</a><a class="dropdown-item" href="#">Second Item</a><a class="dropdown-item" href="#">Third Item</a></div>
                         </div>
-
-                        <p>
-                            <a asp-action="AddEmployee">Add employee</a>
-                        </p>
                     </div>
+
+                    <p>
+                        <a asp-action="AddEmployee">Add employee</a>
+                    </p>*@
                 </div>
-                <div class="row" style="margin-left: 10%;margin-right: 10%;">
-                    <div class="col">
-                        <div style="border-style: solid;height: 508px;width: 90%;text-align: center;margin-left: 5%;margin-top: 34px;overflow-y: scroll;">
+            </div>
+
+            <div class="row" style="margin-left: 10%;margin-right: 10%;">
+                <div class="col">
+
+                    @*<div style="border-style: solid;height: 508px;width: 90%;text-align: center;margin-left: 5%;margin-top: 34px;overflow-y: scroll;">
                             @foreach (var employee in Model.Employees)
                             {
                                 <div style="border-style: solid;border-color: var(--bs-red);height: 53px;margin-top: 8px;margin-right: 10px;margin-left: 10px;">
@@ -55,9 +87,12 @@
                                     </div>
                                 </div>
                             }
-                        </div>
-                    </div>
+                    </div>*@
+
+                    <div id="jsGridEmployee"></div>
+
                 </div>
             </div>
         </div>
     </div>
+</div>
