@@ -19,6 +19,7 @@ namespace PowerUpBuildersWeb.Repositories
 
         public void AddFile(TaskLocalFile file)
         {
+            file.Task = _context.Tasks.Where(t => t.Id == file.Task.Id).First();
             _context.TaskLocalFiles.Add(file);
         }
 
@@ -30,7 +31,7 @@ namespace PowerUpBuildersWeb.Repositories
 
         public void DeleteFile(string fileName)
         {
-            TaskLocalFile file = _context.TaskLocalFiles.Find(fileName);
+            TaskLocalFile file = _context.TaskLocalFiles.Where(f => f.FileName == fileName).First();
             _context.TaskLocalFiles.Remove(file);
         }
 

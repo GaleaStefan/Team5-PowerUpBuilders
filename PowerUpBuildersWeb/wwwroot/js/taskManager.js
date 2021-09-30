@@ -30,6 +30,115 @@
     }
 }();
 
+var TaskFiles = function () {
+    function _requestDelete(fileName) {
+        $.ajax({
+            type: "post",
+            url: "/api/taskFiles/delete",
+            data: {file: fileName}
+        })
+    }
+    function _getFiles (taskId) {
+        return $.ajax({
+            type: "get",
+            url: "/api/taskFiles/",
+            data: { taskId: taskId },
+        });
+    }
+
+    async function _populateTable(table, taskId) {
+        var filesString = await _getFiles(taskId);
+        var files = JSON.parse(filesString);
+
+        $.each(files, function (_k, val) {
+            var button = '<button class="file-button container-fluid w-100 overflow-auto btn" data-fullName="' + val.Name + '" data-link="' + val.Path + val.Name + '">' + val.NameSimplified + '</button>';
+            $(table).jsGrid("insertItem", { Name: val.Name, File: button });
+        });
+
+        $(".file-button").click(function (event) {
+            // Source: https://stackoverflow.com/questions/16086162/handle-file-download-from-ajax-post
+            $.ajax({
+                type: "get",
+                url: "/api/taskFiles/file",
+                data: { fileName: $(this).attr("data-fullName") },
+                xhrFields: {
+                    responseType: 'blob'
+                },
+                success: function (blob, status, xhr) {
+                    var filename = "";
+                    var disposition = xhr.getResponseHeader('Content-Disposition');
+                    if (disposition && disposition.indexOf('attachment') !== -1) {
+                        var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+                        var matches = filenameRegex.exec(disposition);
+                        if (matches != null && matches[1]) filename = matches[1].replace(/['"]/g, '');
+                    }
+
+                    if (typeof window.navigator.msSaveBlob !== 'undefined') {
+                        window.navigator.msSaveBlob(blob, filename);
+                    } else {
+                        var URL = window.URL || window.webkitURL;
+                        var downloadUrl = URL.createObjectURL(blob);
+
+                        if (filename) {
+                            var a = document.createElement("a");
+                            if (typeof a.download === 'undefined') {
+                                window.location.href = downloadUrl;
+                            } else {
+                                a.href = downloadUrl;
+                                a.download = filename;
+                                document.body.appendChild(a);
+                                a.click();
+                            }
+                        } else {
+                            window.location.href = downloadUrl;
+                        }
+
+                        setTimeout(function () { URL.revokeObjectURL(downloadUrl); }, 100); 
+                    }
+                }
+            });
+        });
+    }
+
+    function _createTable(table) {
+        $(table).jsGrid({
+            width: "100%",
+            height: "auto",
+
+            inserting: false,
+            editing: false,
+            sorting: true,
+            paging: true,
+
+            onItemDeleted: function (args) {
+               _requestDelete(args.item.Name);
+            },
+
+            fields: [
+                {
+                    name: "Name",
+                    type: "text",
+                    visible: false
+                },
+
+                {
+                    name: "File",
+                    type: "text"
+                },
+
+                { type: "control" }
+            ]
+        });
+    }
+
+    return {
+        loadFilesTable: function (table, task) {
+            _createTable(table);
+            _populateTable(table, task);
+        }
+    }
+}();
+
 var TaskEmployees = function () {
     function _linkFromItem(item) {
         return {
@@ -209,6 +318,7 @@ var TaskPopup = function () {
         $("body").append(htmlText);
         $(".modal").modal("show");
         _loadAssignedTable("#jsGrid");
+        TaskFiles.loadFilesTable("#filesGrid", $(".modal").attr("data-taskId"));
         _bindPopupEvents();
     }
 

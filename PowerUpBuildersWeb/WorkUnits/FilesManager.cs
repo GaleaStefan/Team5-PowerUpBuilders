@@ -64,10 +64,29 @@ namespace PowerUpBuildersWeb.WorkUnits
             _filesRep.Save();
         }
 
-        public IEnumerable<string> GetFiles(int taskId, FileType type)
-            => _filesRep.GetByTaskID(taskId)
-            .Where(file => file.FileType == type)
-            .Select(file => GetUploadsPath() + file.FileName);
+        public IEnumerable<TaskFile> GetFiles(int taskId)
+        {
+            List<TaskFile> files = new();
+            var localFiles = _filesRep.GetByTaskID(taskId);
+
+            foreach (var localFile in localFiles)
+            {
+                files.Add(new()
+                {
+                    Path = _uploadsManager.UploadsPath,
+                    Name = localFile.FileName,
+                    NameSimplified = localFile.FileName.Substring(localFile.FileName.IndexOf("_") + 1),
+                    Type = localFile.FileType
+                });
+            }
+
+            return files;
+        }
+
+        //public IEnumerable<string> GetFiles(int taskId, FileType type)
+        //    => _filesRep.GetByTaskID(taskId)
+        //    .Where(file => file.FileType == type)
+        //    .Select(file => GetUploadsPath() + file.FileName);
 
         public string GetUploadsPath()
             => _uploadsManager.UploadsPath;

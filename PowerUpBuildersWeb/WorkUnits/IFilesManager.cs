@@ -15,7 +15,7 @@ namespace PowerUpBuildersWeb.WorkUnits
         void DeleteFile(string name);
         void DeleteTaskFiles(int taskId);
 
-        IEnumerable<string> GetFiles(int taskId, FileType type);
+        IEnumerable<TaskFile> GetFiles(int taskId);
 
         void DeleteFilesInTimeRange(DateTime start, DateTime end);
     }
