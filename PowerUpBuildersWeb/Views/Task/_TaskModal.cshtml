@@ -17,7 +17,7 @@
                 </button>
             </div>
 
-            @await Html.PartialAsync("_TaskModalEdit", new TaskModalEditVM() { Task = Model.Task, ModalMode = Model.ModalMode });
+            @await Html.PartialAsync("_TaskModalEdit", new TaskModalEditVM() { Task = Model.Task, ModalMode = Model.ModalMode })
             
 
             @if (Model.ModalMode == ModalMode.ViewEdit)

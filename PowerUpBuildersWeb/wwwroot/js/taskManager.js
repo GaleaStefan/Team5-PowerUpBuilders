@@ -1,10 +1,6 @@
 ﻿var TaskEditor = function () {
     function _postToServer() {
-        var form = $('form')[0];
-
-        // Create an FormData object
-        var data = new FormData(form);
-
+        var data = new FormData($('form')[0]);
 
         return $.ajax({
             type: "post",
@@ -25,16 +21,54 @@
     }
 }();
 
+var TaskEmployees = function () {
+    function _linkFromItem(item) {
+        return {
+            Id: 0,
+            EmployeeId: item.Name,
+            TaskId: parseInt($(".modal").attr("data-taskId")),
+            ActualHours: item.ActualHours,
+            EstimatedHours: item.EstimatedHours
+        };
+    }
+    return {
+        updateLinkInfo: function (item) {
+            $.ajax({
+                type: "post",
+                url: "/api/taskEmployees/update",
+                data: { link: _linkFromItem(item) }
+            })
+        },
+
+        addLink: function (item) {
+            $.ajax({
+                type: "post",
+                url: "/api/taskEmployees/add",
+                data: { link: _linkFromItem(item) }
+            })
+        },
+
+        deleteLink: function (item) {
+            $.ajax({
+                type: "post",
+                url: "/api/taskEmployees/delete",
+                data: { link: _linkFromItem(item) }
+            })
+        }
+    }
+}();
+
 var TaskPopup = function () {
     function _populateAssigedTable(id, selector) {
         $.ajax({
             type: "get",
             url: "/api/taskEmployees/" + id,
             success: function (response) {
-                console.log(response);
+                $(selector).jsGrid("option", "insertByScript", true);
                 $.each(response, function (_k, val) {
                     $(selector).jsGrid("insertItem", { Name: val.employeeId, EstimatedHours: val.estimatedHours, ActualHours: val.actualHours });
                 });
+                $(selector).jsGrid("option", "insertByScript", false);
             }
         });
     }
@@ -61,6 +95,48 @@ var TaskPopup = function () {
             paging: true,
             sorting: true,
 
+            onItemUpdating: function (args) {
+                $.each(args.grid.data, function (_k, val) {
+                    if (val.Name == args.item.Name) {
+                        args.cancel = true;
+                        alert("Employee is already assigned to this task");
+                        return false;
+                    }
+                });
+            },
+
+            onItemUpdated: function (args) {
+                if (args.item.Name == args.previousItem.Name) {
+                    TaskEmployees.updateLinkInfo(args.item);
+                }
+                else {
+                    TaskEmployees.deleteLink(args.previousItem);
+                    TaskEmployees.addLink(args.item);
+                }
+            },
+
+            onItemDeleted: function (args) {
+                TaskEmployees.deleteLink(args.item);
+            },
+
+            onItemInserted: function (args) {
+                if ($("#jsGrid").jsGrid("option", "insertByScript") == false) {
+                    TaskEmployees.addLink(args.item);
+                }
+            },
+
+            onItemInserting: function (args) {
+                if ($("#jsGrid").jsGrid("option", "insertByScript") == false) {
+                    $.each(args.grid.data, function (_k, val) {
+                        if (val.Name == args.item.Name) {
+                            args.cancel = true;
+                            alert("Employee is already assigned to this task");
+                            return false;
+                        }
+                    });
+                }
+            },
+
             fields: [
                 {
                     align: "center",
@@ -70,15 +146,18 @@ var TaskPopup = function () {
                     items: [],
                     items: employees,
                     valueField: "Id",
-                    textField: "Name"
+                    textField: "Name",
+                    validate: "required"
                 },
                 {
                     name: "EstimatedHours",
-                    type: "number"
+                    type: "number",
+                    validate: "required"
                 },
                 {
                     name: "ActualHours",
-                    type: "number"
+                    type: "number",
+                    validate: "required"
                 },
 
                 { type: "control" }

@@ -35,5 +35,13 @@ namespace PowerUpBuildersWeb.Repositories
 
         public void SaveChanges()
             => _context.SaveChanges();
+
+        public void UpdateLink(EmployeeTask link)
+        {
+            var old = _context.EmployeesTasks.Where(l => l.EmployeeId == link.EmployeeId && l.TaskId == link.TaskId).First();
+            link.Id = old.Id;
+
+            _context.Entry(old).CurrentValues.SetValues(link);
+        }
     }
 }
