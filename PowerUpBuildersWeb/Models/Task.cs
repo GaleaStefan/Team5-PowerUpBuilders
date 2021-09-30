@@ -11,7 +11,6 @@ namespace PowerUpBuildersWeb.Models
         public int ProjectId { get; set; }
         public Project Project { get; set; }
 
-        [Required]
         public string TaskNumber { get; set; }
 
         [Required]

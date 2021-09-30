@@ -45,12 +45,33 @@ namespace PowerUpBuildersWeb.Controllers
         }
 
         [HttpPost]
-        public void UpdateTask(TaskModalEditVM data)
+        public IActionResult TaskEditor(TaskModalEditVM data)
         {
-            data.ToString();
+            if(!ModelState.IsValid)
+            {
+                return PartialView("_TaskModalEdit", data);
+            }
+
+            if(data.Task.Id == 0)
+                _projectManager.TaskRepo.InsertTask(data.Task);
+            else
+                _projectManager.TaskRepo.UpdateTask(data.Task);
+
+            _projectManager.TaskRepo.Save();
+            UploadFiles(Request.Form.Files, data.Task);
+
+            return new EmptyResult();
         }
 
-        private FileType GetFileType(IFormFile file)
+        private void UploadFiles(IEnumerable<IFormFile> files, Task task)
+        {
+            foreach (var file in files)
+            {
+                _projectManager.FilesManager.AddFile(file, DateTime.Now, GetFileType(file), task);
+            }
+        }
+
+        private static FileType GetFileType(IFormFile file)
         {
             string extension = System.IO.Path.GetExtension(file.FileName);
             FileType fileType = _imgExtensions.Contains(extension.ToLower()) ? FileType.Photo : FileType.File;

@@ -4,12 +4,21 @@
 
         return $.ajax({
             type: "post",
-            url: "/Project/UpdateTask/",
+            url: "/Project/TaskEditor/",
             contentType: false,
             processData: false,
             data: data,
             success: function (response) {
-                console.log(response);
+                if (response == null || response == "") {
+                    window.location.reload();
+                    return true;
+                }
+
+                $("#edit-body").replaceWith(response);
+                $("form").submit(function (event) {
+                    event.preventDefault();
+                    TaskEditor.updateTask();
+                });
             }
         });
     }
@@ -84,7 +93,6 @@ var TaskPopup = function () {
     }
 
     function _intializeAssignedEmployeesTable(selector, employees) {
-        console.log(employees);
         $(selector).jsGrid({
             width: "100%",
             height: "auto",
@@ -237,7 +245,6 @@ var TaskManager = function () {
             url: "/Task/Delete/",
             data: { id: taskId },
             success: function (response) {
-                alert(response);
                 window.location.href = response;
             }
         });

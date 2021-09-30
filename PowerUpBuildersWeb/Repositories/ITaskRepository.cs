@@ -11,7 +11,7 @@ namespace PowerUpBuildersWeb.Repositories
         IEnumerable<Task> GetProjectTasks(int projectId);
         Task GetTaskByID(int taskId);
 
-        string GetTaskNumber();
+        string GetTaskNumber(DateTime date);
         void InsertTask(Task task);
         void DeleteTask(int taskId);
         void UpdateTask(Task task);

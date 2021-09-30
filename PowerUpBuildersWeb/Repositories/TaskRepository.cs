@@ -14,27 +14,13 @@ namespace PowerUpBuildersWeb.Repositories
             _context = context;
         }
 
-        public string GetTaskNumber()
+        public string GetTaskNumber(DateTime now)
         {
-            DateTime now = DateTime.Now;
-            string strDate = now.ToString("YYYYMMdd");
-            int dailyCount = 0;
-            string taskNumber = "";
+            string strDate = now.ToString("yyyyMMdd");
+            int previous = _context.Tasks.Where(task => task.TaskNumber.Contains("TK" + strDate)).Count();
+            string currentCount = (previous + 1).ToString("00");
 
-            for(int i = 0; i < _context.Tasks.Count(); i++)
-            {
-                if (dailyCount < 10)
-                {
-                    taskNumber =  "TK" + strDate + "0" + dailyCount.ToString();
-                }
-                else
-                {
-                    taskNumber = "TK" + strDate + dailyCount.ToString();
-                }
-                dailyCount++;
-            }
-
-            return taskNumber;
+            return $"TK{strDate}_{currentCount}";
         }
 
         public void DeleteTask(int taskId)
@@ -55,13 +41,14 @@ namespace PowerUpBuildersWeb.Repositories
 
         public void InsertTask(Task task)
         {
-            task.TaskNumber = GetTaskNumber();
+            task.TaskNumber = GetTaskNumber(DateTime.Now);
             _context.Tasks.Add(task);
         }
 
         public void UpdateTask(Task task)
         {
-            _context.Entry(task).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            var old = _context.Tasks.Where(t => t.Id == task.Id).First();
+            _context.Entry(old).CurrentValues.SetValues(task);
         }
 
         public void Save()
