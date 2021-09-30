@@ -24,8 +24,10 @@ namespace PowerUpBuildersWeb.Controllers
         public IActionResult Index()
         {
             var projects = _projectRepository.GetProjects();
-            var projectsViewModel = new ProjectsViewModel();
-            projectsViewModel.Projects = projects;
+            var projectsViewModel = new ProjectsViewModel
+            {
+                Projects = projects
+            };
             return View(projectsViewModel);
         }
         public ActionResult Create()
@@ -51,7 +53,7 @@ namespace PowerUpBuildersWeb.Controllers
         public ActionResult Edit(int id)
         {
             var project = _projectRepository.GetProjectById(id);
-            return View(project);
+            return PartialView("_UpdateProject",project);
         }
 
 
@@ -65,7 +67,7 @@ namespace PowerUpBuildersWeb.Controllers
                 return RedirectToAction("Index");
             }else
             {
-                return View(project);
+                return PartialView("_UpdateProject", project);
             }
 
         }
@@ -74,7 +76,7 @@ namespace PowerUpBuildersWeb.Controllers
         public ActionResult Delete(int id)
         {
             var project = _projectRepository.GetProjectById(id);
-            return View(project);
+            return PartialView("_DeleteProject",project);
         }
         [HttpPost]
         public ActionResult ConfirmDelete(int id)
@@ -83,7 +85,11 @@ namespace PowerUpBuildersWeb.Controllers
             _projectRepository.Save();
             return RedirectToAction("Index", "Projects");
         }
-
+        public ActionResult Details(int id)
+        {
+            var project = _projectRepository.GetProjectById(id);
+            return PartialView("_ProjectDetails", project);
+        }
        
     }
 }

@@ -9,6 +9,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\images\background.jpg" />
+    <None Include="wwwroot\images\building.jpg" />
+    <None Include="wwwroot\images\project-background.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.10">
       <PrivateAssets>all</PrivateAssets>
