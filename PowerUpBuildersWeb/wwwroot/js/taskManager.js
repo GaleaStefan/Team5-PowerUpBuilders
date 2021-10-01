@@ -324,9 +324,9 @@ var TaskPopup = function () {
 
     function _requestPopup(id) {
         $.ajax({
-            type: "POST",
+            type: "get",
             url: "/Task/Details/",
-            data: { projectId: $("#tasks-list").attr("data-parentProject"), taskId: id },
+            data: { projectId: parseInt($("#task-view").attr("data-projectId")), taskId: id },
             success: function (response) {
                 _addToPage(response);
             }

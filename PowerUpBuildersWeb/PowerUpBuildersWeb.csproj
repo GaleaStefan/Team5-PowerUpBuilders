@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Views\Shared\Components\TaskCard\" />
     <Folder Include="wwwroot\taskFiles\" />
   </ItemGroup>
 

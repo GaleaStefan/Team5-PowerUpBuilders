@@ -4,8 +4,34 @@
     <form id="task-form" method="post" enctype="multipart/form-data">
         <input type="number" asp-for="Task.Id" value="@(Model.ModalMode == ModalMode.Edit ? 0 : Model.Task.Id)" hidden />
         <input type="text" asp-for="Task.TaskNumber" value="@Model.Task.TaskNumber" hidden />
-        <input type="number" asp-for="Task.Status" value="@((int)Model.Task.Status)" hidden />
+        @*<input type="number" asp-for="Task.Status" value="@((int)Model.Task.Status)" hidden />*@
         <input type="number" asp-for="Task.ProjectId" value="@Model.Task.ProjectId" hidden />
+
+        <div class="btn-group" role="group">
+            @{
+                string[] badgeColors = new string[]
+                {
+                    "btn-outline-info",
+                    "btn-outline-danger",
+                    "btn-outline-warning",
+                    "btn-outline-success"
+            };
+            }
+
+            @foreach (PowerUpBuildersWeb.TaskStatus status in Enum.GetValues(typeof(PowerUpBuildersWeb.TaskStatus)))
+            {
+                if (status == Model.Task.Status)
+                {
+                    <input type="radio" class="btn-check" asp-for="Task.Status" id="radio_@status" value="@status" autocomplete="off" checked>
+                }
+                else
+                {
+                    <input type="radio" class="btn-check" asp-for="Task.Status" id="radio_@status" value="@status" autocomplete="off">
+                }
+
+                <label class="btn @badgeColors[(int)status]" for="radio_@status">@status.ToString()</label>
+            }
+        </div>
 
         <div class="form-group">
             <label asp-for="Task.Title">Title:</label>

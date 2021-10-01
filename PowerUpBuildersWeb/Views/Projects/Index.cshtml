@@ -32,7 +32,7 @@
                                         <div class="btn-group-vertical button-group" role="group">
                                             <button class="btn btn-primary project-button updateProject" type="button" data-bss-hover-animate="pulse" data-id="@project.Id">Edit</button>
                                             <button class="btn btn-primary project-button deleteProject" data-bss-hover-animate="pulse" type="button" data-id="@project.Id">Delete</button>
-                                            <button class="btn btn-primary project-button" data-bss-hover-animate="pulse" type="button">Tasks</button>
+                                            <a class="btn btn-primary project-button" data-bss-hover-animate="pulse" asp-controller="Project" asp-action="Index" asp-route-id="@project.Id">Tasks</a>
                                             
                                         </div>
                                     </div>

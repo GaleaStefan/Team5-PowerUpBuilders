@@ -18,7 +18,7 @@ namespace PowerUpBuildersWeb.Controllers
             return "/Home/Index/";
         }
 
-        [HttpPost]
+        [HttpGet]
         public IActionResult Details(int projectId, int taskId)
         {
             TaskModalViewModel model = new()
