@@ -49,10 +49,10 @@
     border-style: none;
 }
 
-.project-title {
+#project-title {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-    border: 3px solid var(--bs-gray-600);
+    border: 3px solid black;
 }
 
 .project-buttons {

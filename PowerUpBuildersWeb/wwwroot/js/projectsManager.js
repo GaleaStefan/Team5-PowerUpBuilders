@@ -27,16 +27,6 @@ $(function () {
     });
 });
 
-//create newProject
-$(function () {
-    $("#btnShowModal").click(function () {
-        $("#createModal").modal('show');
-    });
-
-    $("#btnHideModal").click(function () {
-        $("#createModal").modal('hide');
-    });
-});
 
 var updateUrl = '/Projects/Edit';
 $(function () {
@@ -66,3 +56,14 @@ $(function () {
         $('#myModal2').modal('hide');
     });
 });
+
+$(document).ready(function () {
+    $('#showCreateProject').click(function () {
+        var url = $('#createProjectModal').data('url');
+        $.get(url, function (data) {
+            $('#createContainer').html(data);
+
+            $('#createProjectModal').modal('show');
+        });
+    })
+})

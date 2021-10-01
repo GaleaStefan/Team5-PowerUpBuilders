@@ -8,7 +8,7 @@ namespace PowerUpBuildersWeb.Models
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage ="Please enter project name")]
+        [Required(ErrorMessage ="Please enter project name!")]
         public string Name { get; set; }
         public List<Task> Tasks { get; set; }
     }

@@ -30,9 +30,10 @@
                                     </div>
                                     <div class="project-buttons">
                                         <div class="btn-group-vertical button-group" role="group">
-                                            <button class="btn btn-primary project-button updateProject" data-bss-hover-animate="pulse" type="button" date-id="@project.Id">Edit</button>
+                                            <button class="btn btn-primary project-button updateProject" type="button" data-bss-hover-animate="pulse" data-id="@project.Id">Edit</button>
                                             <button class="btn btn-primary project-button deleteProject" data-bss-hover-animate="pulse" type="button" data-id="@project.Id">Delete</button>
                                             <button class="btn btn-primary project-button" data-bss-hover-animate="pulse" type="button">Tasks</button>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -53,29 +54,6 @@
         </div>
     </div>
 
-    @*<div class="row" style="height: 451px;width: 95%;margin-left: 10%;margin-right: 10%;margin-top: 74px;margin-bottom:100px">
-            <div class="col col-md-8">
-                <button class="btn btn-primary plus-button" id="btnShowModal" type="button" style="margin-bottom: 15px;">Create Project</button>
-                <div style="overflow-y: scroll;height: 483px;">
-                    @foreach (var project in Model.Projects)
-                    {
-                        <div class="d-inline-block float-start" style="height: 150px;border-style: solid;width: 180px;margin-top: 9px;margin-left: 15px;">
-
-                            <div style="border-style: solid;border-color: var(--bs-red);height: 20%;">
-                                <h5 class="text-center">@project.Name</h5>
-                            </div>
-
-                            <div style="border-style: solid;border-color: var(--bs-indigo);height: 80%;">
-                                <button class="btn btn-primary updateProject" type="button" data-id="@project.Id">Edit</button>
-                                <button class="btn btn-outline-danger deleteProject" type="button" data-id="@project.Id"><i class="fa fa-trash"></i></button>
-                            </div>
-                        </div>
-                    }
-                </div>
-            </div>
-
-        </div>*@
-
     <div id='myModal0' class='modal'>
         <div class="modal-dialog0">
             <div class="modal-content0">
@@ -83,13 +61,6 @@
             </div>
         </div>
     </div>
-    @*<div id='myModal1' class='modal'>
-        <div class="modal-dialog1">
-            <div class="modal-content1">
-                <div id='myModalContent1'></div>
-            </div>
-        </div>
-    </div>*@
 
     <div id='myModal2' class='modal'>
         <div class="modal-dialog2">
