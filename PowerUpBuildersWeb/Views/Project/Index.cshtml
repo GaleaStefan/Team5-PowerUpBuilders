@@ -4,23 +4,41 @@
     <script src="~/js/taskManager.js"></script>
 }
 
-<div class="row">
-    <div class="col">
+<div class="row" style="margin-top: 100px;">
+    <div class="col" >
         <header class="text-center">
             <h1 class="mt-1">@Model.Project.Name</h1>
         </header>
     </div>
 </div>
-<div class="row mx-5">
-    <div class="col-md-7">
-        <div class="border" style="overflow-y: scroll;">
-            <div class="border mx-1 mt-1" style="color: var(--bs-gray-900);border-style: solid;">
-                <p>[Description]<br><br></p>
-            </div>
 
+<div class="row" style="margin-top: 100px;">
+    <div class="col col-md-8">
+        @{
+            var tasksByStatus = Model.Project.Tasks.GroupBy(t => t.Status).OrderBy(group => group.Key);
+        }
+        <div id="task-view" class="container-fluid w-100" data-projectId="@Model.Project.Id">
+            <div class="row w-100">
+                @foreach (var group in tasksByStatus)
+                {
+
+                    <div class="col-md bg-light overflow-auto">
+                        <h5 class="text-center">@group.Key.ToString() Tasks</h5>
+                        @foreach (var task in group)
+                        {
+                            @await Html.PartialAsync("_TaskCard", task)
+                        }
+                    </div>
+                    @*if (group.Key == PowerUpBuildersWeb.TaskStatus.New)
+                        {
+                            <button id="new-task-button" class="btn btn-outline-secondary">+</button>
+                        }*@
+                }
+            </div>
         </div>
+
     </div>
-    <div class="col-md-5">
+    <div class="col col-md-4">
         <div class="container-fluid text-center">Assigned Employees</div>
         <div class="border text-center mx-5">
             @foreach (var employee in Model.Employees)
@@ -34,64 +52,45 @@
     </div>
 </div>
 
-@{
-    var tasksByStatus = Model.Project.Tasks.GroupBy(t => t.Status).OrderBy(group => group.Key);
-}
-<div id="task-view" class="container-fluid w-100" data-projectId="@Model.Project.Id">
-    <div class="row w-100">
-        @foreach (var group in tasksByStatus)
-        {
 
-            <div class="col-md bg-light overflow-auto">
-                <h3 class="text-center">@group.Key.ToString() Tasks</h3>
-                @foreach (var task in group)
-                {
-                    @await Html.PartialAsync("_TaskCard", task)
-                }
-            </div>
-            @*if (group.Key == PowerUpBuildersWeb.TaskStatus.New)
-            {
-                <button id="new-task-button" class="btn btn-outline-secondary">+</button>
-            }*@
-        }
-    </div>
-</div>
+
+
 
 
 @*<div class="container-fluid w-100">
-    <div class="row w-100">
-        <div class="col-md bg-light">
-            <h3 class="text-center">New Tasks</h3>
+        <div class="row w-100">
+            <div class="col-md bg-light">
+                <h3 class="text-center">New Tasks</h3>
 
-        </div>
-        <div class="col-md">
+            </div>
+            <div class="col-md">
 
-        </div>
-        <div class="col-md">
+            </div>
+            <div class="col-md">
 
-        </div>
-        <div class="col-md">
+            </div>
+            <div class="col-md">
 
+            </div>
         </div>
-    </div>
-</div>*@
+    </div>*@
 
 @*<h1 class="text-center" style="margin: 0px;margin-top: 35px;margin-bottom: -46px;">Tasks</h1>
-<div id="tasks-list" data-parentProject="@Model.Project.Id" class="row" style="border-style: solid;height: 300px;margin-top: 53px;overflow-y: scroll;margin-left: 10%;margin-right: 10%;">
-    <div class="col">
-        <div>
-            @foreach (var _task in Model.Project.Tasks)
-            {
-                <div class="row">
-                    <div class="col-1"><button class="task-delete btn btn-outline-danger" data-taskId="@_task.Id">X</button></div>
-                    <div class="col-11">
-                        <button class="task-load-button w-100" data-taskId="@_task.Id">
-                            @await Component.InvokeAsync("TaskRow", new { task = _task, projectName = Model.Project.Name })
-                        </button>
+    <div id="tasks-list" data-parentProject="@Model.Project.Id" class="row" style="border-style: solid;height: 300px;margin-top: 53px;overflow-y: scroll;margin-left: 10%;margin-right: 10%;">
+        <div class="col">
+            <div>
+                @foreach (var _task in Model.Project.Tasks)
+                {
+                    <div class="row">
+                        <div class="col-1"><button class="task-delete btn btn-outline-danger" data-taskId="@_task.Id">X</button></div>
+                        <div class="col-11">
+                            <button class="task-load-button w-100" data-taskId="@_task.Id">
+                                @await Component.InvokeAsync("TaskRow", new { task = _task, projectName = Model.Project.Name })
+                            </button>
+                        </div>
                     </div>
-                </div>
-            }
-            <button id="new-task-button" class="btn btn-outline-secondary w-100">+</button>
+                }
+                <button id="new-task-button" class="btn btn-outline-secondary w-100">+</button>
+            </div>
         </div>
-    </div>
-</div>*@
+    </div>*@
