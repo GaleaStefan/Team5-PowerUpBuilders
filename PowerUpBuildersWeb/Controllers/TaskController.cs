@@ -12,10 +12,13 @@ namespace PowerUpBuildersWeb.Controllers
             => _projectManager = repo;
 
         [HttpPost]
-        public string Delete(int id)
+        public void Delete(int id)
         {
-            Console.WriteLine(id);
-            return "/Home/Index/";
+            _projectManager.EmployeeTaskRepo.RemoveTaskLinks(id);
+            _projectManager.EmployeeTaskRepo.SaveChanges();
+            _projectManager.FilesManager.DeleteTaskFiles(id);
+            _projectManager.TaskRepo.DeleteTask(id);
+            _projectManager.TaskRepo.Save();
         }
 
         [HttpGet]

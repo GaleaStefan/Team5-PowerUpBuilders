@@ -354,8 +354,8 @@ var TaskManager = function () {
             type: "POST",
             url: "/Task/Delete/",
             data: { id: taskId },
-            success: function (response) {
-                window.location.href = response;
+            success: function (_response) {
+                window.location.reload();
             }
         });
     }
