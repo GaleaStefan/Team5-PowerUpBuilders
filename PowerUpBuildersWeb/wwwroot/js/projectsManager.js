@@ -68,3 +68,17 @@ $(document).ready(function () {
     })
 })
 
+$(document).ready(function () {
+    $(".btn-group-vertical").hover(function () {
+        $.each($(this).children(), function (_k, child) {
+            $(child).css("opacity", 1);
+            $(child).prop("disabled", false);
+            
+        });
+    }, function () {
+        $.each($(this).children(), function (_k, child) {
+            $(child).css("opacity", 0);
+            $(child).prop("disabled", true);
+        });
+    });
+});

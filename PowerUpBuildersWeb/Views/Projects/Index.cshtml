@@ -28,12 +28,11 @@
                                     <div class="project-title">
                                         <h5 class="text-break text-center">@project.Name</h5>
                                     </div>
-                                    <div class="project-buttons ">
-                                        <div class="btn-group-vertical button-group " role="group">
-                                            <button class="btn btn-primary project-button updateProject" type="button" data-bss-hover-animate="pulse" data-id="@project.Id">Edit</button>
-                                            <button class="btn btn-primary project-button deleteProject" data-bss-hover-animate="pulse" type="button" data-id="@project.Id">Delete</button>
-                                            <a class="btn btn-primary project-button" data-bss-hover-animate="pulse" asp-controller="Project" asp-action="Index" asp-route-id="@project.Id">Tasks</a>
-                                            
+                                    <div class="project-buttons">
+                                        <div class="btn-group-vertical button-group" role="group">
+                                            <button class="btn btn-primary project-button updateProject" type="button" data-bss-hover-animate="pulse" data-id="@project.Id" style="opacity:0; transition: opacity .8s ease-in-out" disabled>Edit</button>
+                                            <button class="btn btn-primary project-button deleteProject" data-bss-hover-animate="pulse" type="button" data-id="@project.Id" style="opacity: 0; transition: opacity .8s ease-in-out" disabled>Delete</button>
+                                            <a class="btn btn-primary project-button" data-bss-hover-animate="pulse" asp-controller="Project" asp-action="Index" asp-route-id="@project.Id" style="opacity: 0; transition: opacity .8s ease-in-out">Tasks</a>
                                         </div>
                                     </div>
                                 </div>
@@ -50,7 +49,7 @@
 
 
                 </div>
-            </div><button class="btn btn-primary add-button" data-bss-hover-animate="pulse" type="button"  onclick="location.href = '@Url.Action("Create","Projects")'">+</button>
+            </div><button class="btn btn-primary add-button " data-bss-hover-animate="pulse" type="button"  onclick="location.href = '@Url.Action("Create","Projects")'">+</button>
         </div>
     </div>
 
