@@ -6,8 +6,6 @@ namespace PowerUpBuildersWeb.ViewModel
     public class ProjectViewModel
     {
         public Project Project { get; set; }
-        //public IEnumerable<Models.Task> Tasks { get; set; }
         public IEnumerable<Employee> Employees { get; set; }
-        //public IEmployeeTaskRepository TaskEmployees { get; set; }
     }
 }

@@ -64,7 +64,7 @@ var TaskFiles = function () {
                 xhrFields: {
                     responseType: 'blob'
                 },
-                success: function (blob, status, xhr) {
+                success: function (blob, _status, xhr) {
                     var filename = "";
                     var disposition = xhr.getResponseHeader('Content-Disposition');
                     if (disposition && disposition.indexOf('attachment') !== -1) {
@@ -340,10 +340,6 @@ var TaskPopup = function () {
 
         createTask: function () {
             _requestPopup(0);
-        },
-
-        removeFromPage: function () {
-
         }
     }
 }();

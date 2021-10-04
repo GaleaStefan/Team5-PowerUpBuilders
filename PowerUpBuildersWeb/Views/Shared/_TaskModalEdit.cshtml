@@ -4,7 +4,6 @@
     <form id="task-form" method="post" enctype="multipart/form-data">
         <input type="number" asp-for="Task.Id" value="@(Model.ModalMode == ModalMode.Edit ? 0 : Model.Task.Id)" hidden />
         <input type="text" asp-for="Task.TaskNumber" value="@Model.Task.TaskNumber" hidden />
-        @*<input type="number" asp-for="Task.Status" value="@((int)Model.Task.Status)" hidden />*@
         <input type="number" asp-for="Task.ProjectId" value="@Model.Task.ProjectId" hidden />
 
         <div class="btn-group" role="group">

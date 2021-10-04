@@ -14,9 +14,9 @@
 
 <button id="new-task-button" class="btn btn-outline-secondary w-100">+ New Task</button>
 
-<div class="row" style="margin-top: 10px;">
-    
-    <div class="col-lg-8">
+<div class="row p-0" style="margin-top: 10px;">
+
+    <div class="col-lg@(Model.Employees.Any() ? "-9" : "") m-0">
         @{
             var tasksByStatus = Model.Project.Tasks.GroupBy(t => t.Status).OrderBy(group => group.Key);
         }
@@ -37,59 +37,17 @@
         </div>
 
     </div>
-    <div class="col-lg-4">
-        <div class="container-fluid text-center">Assigned Employees</div>
-        <div class="border text-center mx-5">
-            @foreach (var employee in Model.Employees)
-            {
-                <div class="row w-100">
-                    <p class="col-2">@employee.Id</p>
-                    <p class="col-10">@employee.Name</p>
-                </div>
-            }
-        </div>
-    </div>
-</div>
-
-
-
-
-
-
-@*<div class="container-fluid w-100">
-        <div class="row w-100">
-            <div class="col-md bg-light">
-                <h3 class="text-center">New Tasks</h3>
-
-            </div>
-            <div class="col-md">
-
-            </div>
-            <div class="col-md">
-
-            </div>
-            <div class="col-md">
-
-            </div>
-        </div>
-    </div>*@
-
-@*<h1 class="text-center" style="margin: 0px;margin-top: 35px;margin-bottom: -46px;">Tasks</h1>
-    <div id="tasks-list" data-parentProject="@Model.Project.Id" class="row" style="border-style: solid;height: 300px;margin-top: 53px;overflow-y: scroll;margin-left: 10%;margin-right: 10%;">
-        <div class="col">
-            <div>
-                @foreach (var _task in Model.Project.Tasks)
+    @if (Model.Employees.Any())
+    {
+        <div class="col-lg-3 p-0">
+            <div class="container-fluid text-center">Assigned Employees</div>
+            <div class="border text-center mx-1">
+                @foreach (var employee in Model.Employees)
                 {
-                    <div class="row">
-                        <div class="col-1"><button class="task-delete btn btn-outline-danger" data-taskId="@_task.Id">X</button></div>
-                        <div class="col-11">
-                            <button class="task-load-button w-100" data-taskId="@_task.Id">
-                                @await Component.InvokeAsync("TaskRow", new { task = _task, projectName = Model.Project.Name })
-                            </button>
-                        </div>
-                    </div>
+                    <div class="container-fluid w-100">@employee.Name</div>
                 }
-                <button id="new-task-button" class="btn btn-outline-secondary w-100">+</button>
             </div>
         </div>
-    </div>*@
+    }
+
+</div>

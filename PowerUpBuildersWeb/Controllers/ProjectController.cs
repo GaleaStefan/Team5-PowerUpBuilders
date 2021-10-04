@@ -12,16 +12,7 @@ namespace PowerUpBuildersWeb.Controllers
     {
         private readonly IProjectManager _projectManager;
 
-        private static readonly List<string> _imgExtensions = new()
-        {
-            ".png",
-            ".jpg",
-            ".jpeg",
-            ".gif"
-        };
-
-        public ProjectController(
-            IProjectManager manager)
+        public ProjectController(IProjectManager manager)
         {
             _projectManager = manager;
         }
@@ -64,10 +55,17 @@ namespace PowerUpBuildersWeb.Controllers
         private void UploadFiles(IEnumerable<IFormFile> files, Task task)
         {
             foreach (var file in files)
-            {
                 _projectManager.FilesManager.AddFile(file, DateTime.Now, GetFileType(file), task);
-            }
+
         }
+
+        private static readonly List<string> _imgExtensions = new()
+        {
+            ".png",
+            ".jpg",
+            ".jpeg",
+            ".gif"
+        };
 
         private static FileType GetFileType(IFormFile file)
         {

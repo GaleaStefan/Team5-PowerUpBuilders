@@ -81,11 +81,6 @@ namespace PowerUpBuildersWeb.WorkUnits
             return files;
         }
 
-        //public IEnumerable<string> GetFiles(int taskId, FileType type)
-        //    => _filesRep.GetByTaskID(taskId)
-        //    .Where(file => file.FileType == type)
-        //    .Select(file => GetUploadsPath() + file.FileName);
-
         public string GetUploadsPath()
             => _uploadsManager.UploadsPath;
     }
