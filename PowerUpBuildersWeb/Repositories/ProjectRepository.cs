@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using PowerUpBuildersWeb.Models;
@@ -9,7 +8,7 @@ namespace PowerUpBuildersWeb.Repositories
     public class ProjectRepository : IProjectRepository
     {
         private readonly AppDbContext _context;
-        
+
         public ProjectRepository(AppDbContext context)
         {
             _context = context;

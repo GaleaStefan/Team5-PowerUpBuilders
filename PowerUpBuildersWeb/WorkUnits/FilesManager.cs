@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using PowerUpBuildersWeb.Models;
 using PowerUpBuildersWeb.Repositories;
@@ -23,7 +21,7 @@ namespace PowerUpBuildersWeb.WorkUnits
         public void AddFile(IFormFile formFile, DateTime timeStamp, FileType fileType, Models.Task task)
         {
             string time = timeStamp.ToString("yyyyMMddHHmmssfff");
-            
+
             TaskLocalFile file = new()
             {
                 FileName = time + "_" + formFile.FileName,
@@ -46,7 +44,7 @@ namespace PowerUpBuildersWeb.WorkUnits
 
         public void DeleteFilesInTimeRange(DateTime start, DateTime end)
         {
-            foreach(TaskLocalFile file in _filesRep.GetInTimeRange(start, end))
+            foreach (TaskLocalFile file in _filesRep.GetInTimeRange(start, end))
             {
                 _uploadsManager.DeleteFile(file.FileName);
                 _filesRep.DeleteFile(file.Id);
@@ -56,7 +54,7 @@ namespace PowerUpBuildersWeb.WorkUnits
 
         public void DeleteTaskFiles(int taskId)
         {
-            foreach(TaskLocalFile file in _filesRep.GetByTaskID(taskId))
+            foreach (TaskLocalFile file in _filesRep.GetByTaskID(taskId))
             {
                 _uploadsManager.DeleteFile(file.FileName);
                 _filesRep.DeleteFile(file.Id);

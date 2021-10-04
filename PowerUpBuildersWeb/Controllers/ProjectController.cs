@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using PowerUpBuildersWeb.Models;
 using PowerUpBuildersWeb.ViewModel;
 using PowerUpBuildersWeb.WorkUnits;
@@ -34,7 +32,7 @@ namespace PowerUpBuildersWeb.Controllers
 
             if (current is null)
                 return RedirectToAction("Index", "Home");
-            
+
             ProjectViewModel project = new()
             {
                 Project = current,
@@ -47,12 +45,12 @@ namespace PowerUpBuildersWeb.Controllers
         [HttpPost]
         public IActionResult TaskEditor(TaskModalEditVM data)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return PartialView("_TaskModalEdit", data);
             }
 
-            if(data.Task.Id == 0)
+            if (data.Task.Id == 0)
                 _projectManager.TaskRepo.InsertTask(data.Task);
             else
                 _projectManager.TaskRepo.UpdateTask(data.Task);

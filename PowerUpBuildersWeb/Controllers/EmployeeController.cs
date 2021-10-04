@@ -1,13 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using PowerUpBuildersWeb.Models;
 using PowerUpBuildersWeb.Repositories;
 using PowerUpBuildersWeb.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PowerUpBuildersWeb.Controllers
 {
@@ -27,8 +25,10 @@ namespace PowerUpBuildersWeb.Controllers
 
         public IActionResult Index()
         {
-            EmployeeViewModel employees = new EmployeeViewModel();
-            employees.Employees = _employeeRepository.GetEmployees();
+            EmployeeViewModel employees = new EmployeeViewModel
+            {
+                Employees = _employeeRepository.GetEmployees()
+            };
             return View(employees);
         }
 
@@ -52,21 +52,21 @@ namespace PowerUpBuildersWeb.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, [Bind("Id,Name,Tasks")] Employee employee)
         {
-            if(id != employee.Id)
+            if (id != employee.Id)
             {
                 return NotFound();
             }
 
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 try
                 {
                     _employeeRepository.UpdateEmployee(employee);
                     _employeeRepository.Save();
                 }
-                catch(DbUpdateConcurrencyException)
+                catch (DbUpdateConcurrencyException)
                 {
-                    if(!_employeeRepository.GetEmployees().Contains(employee))
+                    if (!_employeeRepository.GetEmployees().Contains(employee))
                     {
                         return NotFound();
                     }
@@ -103,7 +103,7 @@ namespace PowerUpBuildersWeb.Controllers
         {
             var employee = _employeeRepository.GetEmployeeById(id);
 
-            if(employee != null)
+            if (employee != null)
             {
                 _employeeRepository.DeleteEmployee(id);
                 _employeeRepository.Save();

@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using PowerUpBuildersWeb.ViewModel;
 using PowerUpBuildersWeb.WorkUnits;
 
@@ -30,7 +29,7 @@ namespace PowerUpBuildersWeb.Controllers
                 ModalMode = taskId > 0 ? ModalMode.ViewEdit : ModalMode.Edit
             };
 
-            if(model is null)
+            if (model is null)
                 RedirectToAction("Index", "Home");
 
             return PartialView("_TaskModal", model);

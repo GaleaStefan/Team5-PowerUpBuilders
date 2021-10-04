@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using PowerUpBuildersWeb.Models;
 using PowerUpBuildersWeb.Repositories;
@@ -41,18 +38,5 @@ namespace PowerUpBuildersWeb.Controllers
             _links.RemoveEmployeeFromTask(link.EmployeeId, link.TaskId);
             _links.SaveChanges();
         }
-
-        //[HttpPost]
-        //public void UpdateLinks(int taskId, int[] employees)
-        //{
-        //    _links.RemoveTaskLinks(taskId);
-
-        //    foreach(var employeeId in employees)
-        //    {
-        //        _links.AssignEmployeeToTask(new Models.EmployeeTask { EmployeeId = employeeId, TaskId = taskId, EstimatedHours = 0, ActualHours = 0 });
-        //    }
-
-        //    _links.SaveChanges();
-        //}
     }
 }

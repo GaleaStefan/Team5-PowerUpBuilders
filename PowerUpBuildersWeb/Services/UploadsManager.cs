@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using Microsoft.AspNetCore.Hosting;
+﻿using System.IO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 
@@ -21,7 +19,7 @@ namespace PowerUpBuildersWeb.Services
         {
             FileInfo file = new(_uploadsPath + name);
 
-            if(file.Exists)
+            if (file.Exists)
             {
                 file.Delete();
             }

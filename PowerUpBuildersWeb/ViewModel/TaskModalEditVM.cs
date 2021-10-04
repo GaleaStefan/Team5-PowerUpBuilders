@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Http;
-
-namespace PowerUpBuildersWeb.ViewModel
+﻿namespace PowerUpBuildersWeb.ViewModel
 {
     public class TaskModalEditVM
     {

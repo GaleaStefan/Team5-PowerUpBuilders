@@ -1,14 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 
 using PowerUpBuildersWeb.Models;
 using PowerUpBuildersWeb.Repositories;
 using PowerUpBuildersWeb.ViewModel;
-using System;
 
 
 namespace PowerUpBuildersWeb.Controllers
@@ -53,7 +47,7 @@ namespace PowerUpBuildersWeb.Controllers
         public ActionResult Edit(int id)
         {
             var project = _projectRepository.GetProjectById(id);
-            return PartialView("_UpdateProject",project);
+            return PartialView("_UpdateProject", project);
         }
 
 
@@ -65,7 +59,8 @@ namespace PowerUpBuildersWeb.Controllers
                 _projectRepository.UpdateProject(project);
                 _projectRepository.Save();
                 return RedirectToAction("Index");
-            }else
+            }
+            else
             {
                 return PartialView("_UpdateProject", project);
             }
@@ -76,7 +71,7 @@ namespace PowerUpBuildersWeb.Controllers
         public ActionResult Delete(int id)
         {
             var project = _projectRepository.GetProjectById(id);
-            return PartialView("_DeleteProject",project);
+            return PartialView("_DeleteProject", project);
         }
         [HttpPost]
         public ActionResult ConfirmDelete(int id)
@@ -90,6 +85,6 @@ namespace PowerUpBuildersWeb.Controllers
             var project = _projectRepository.GetProjectById(id);
             return PartialView("_ProjectDetails", project);
         }
-       
+
     }
 }
